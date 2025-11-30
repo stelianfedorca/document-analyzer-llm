@@ -42,10 +42,6 @@ export function UploadPanel() {
     <section className={styles.container} aria-labelledby="upload-heading">
       <div
         className={`${styles.uploadArea} ${isDragging ? styles.active : ""}`}
-        // onDragEnter={handleDragEnter}
-        // onDragOver={handleDragOver}
-        // onDragLeave={handleDragLeave}
-        // onDrop={handleDrop}
       >
         <input
           id="file-input"
@@ -67,7 +63,7 @@ export function UploadPanel() {
             className={styles.iconWrap}
             animate={{
               scale: isDragging ? 1.1 : 1,
-              backgroundColor: isDragging ? "#e0e7ff" : "#f1f5f9",
+              backgroundColor: isDragging ? "#e0e7ff" : "transparent",
               color: isDragging ? "#4f46e5" : "#64748b",
             }}
             transition={{ duration: 0.2 }}
@@ -77,19 +73,11 @@ export function UploadPanel() {
 
           <div className={styles.textStack}>
             <h3 id="upload-heading" className={styles.title}>
-              Click to upload or drag and drop
+              Import your file
             </h3>
-            <p className={styles.subtitle}>PDF, DOC, DOCX, TXT</p>
-            <p className={styles.subtitle}>Max 10 MB</p>
+            <p className={styles.subtitle}>Click to upload</p>
+            <p className={styles.subtitleDesktop}>Drag or click to upload</p>
           </div>
-
-          <div className={styles.divider}>
-            <span className={styles.dividerLine}></span>
-            <span className={styles.dividerText}>OR</span>
-            <span className={styles.dividerLine}></span>
-          </div>
-
-          <span className={styles.browseFilesButton}>Browse Files</span>
         </label>
       </div>
     </section>
