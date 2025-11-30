@@ -1,0 +1,21 @@
+.container {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-color: blueviolet;
+  height: 80px;
+}
+
+.main {
+  flex: 1;
+  background-color: bisque;
+}
+
+.footer {
+  background-color: brown;
+  height: 150px;
+}
