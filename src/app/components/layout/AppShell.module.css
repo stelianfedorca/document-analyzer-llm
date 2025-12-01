@@ -6,8 +6,9 @@
 }
 
 .header {
-  background-color: blueviolet;
   height: 80px;
+
+  border-bottom: 1px solid;
 }
 
 .main {
@@ -15,6 +16,5 @@
 }
 
 .footer {
-  background-color: brown;
   height: 150px;
 }
