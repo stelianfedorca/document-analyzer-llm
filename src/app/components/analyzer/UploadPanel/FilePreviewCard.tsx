@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, stagger, Variants } from "framer-motion";
 import { FiFileText, FiX } from "react-icons/fi";
 import styles from "./FilePreviewCard.module.css";
 
@@ -21,15 +21,36 @@ export function FilePreviewCard({ file, onAnalyze, onRemove }: Props) {
     await onAnalyze(file);
   };
 
+  /*
+    Animation
+  */
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: stagger(0.1, { startDelay: 0.05 }),
+      },
+    },
+    exit: {
+      opacity: 0,
+    },
+  };
+
   return (
     <motion.div
       className={styles.wrapper}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.2 }}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
     >
-      <motion.div className={styles.card}>
+      <motion.div className={styles.card} variants={itemVariants}>
         <div className={styles.iconWrapper}>
           <FiFileText className={styles.icon} />
         </div>
@@ -48,9 +69,13 @@ export function FilePreviewCard({ file, onAnalyze, onRemove }: Props) {
         </button>
       </motion.div>
 
-      <button className={styles.analyzeButton} onClick={handleAnalyze}>
+      <motion.button
+        className={styles.analyzeButton}
+        onClick={handleAnalyze}
+        variants={itemVariants}
+      >
         <span>Analyze</span>
-      </button>
+      </motion.button>
     </motion.div>
   );
 }
