@@ -6,12 +6,13 @@ import { FiUploadCloud } from "react-icons/fi";
 import styles from "./UploadPanel.module.css";
 import { FilePreviewCard } from "./FilePreviewCard";
 
-interface UploadPanelProps {
+interface Props {
   file: File | null;
   onFileSelect: (file: File | null) => void;
+  onAnalyze: (file: File) => Promise<void>;
 }
 
-export function UploadPanel({ file, onFileSelect }: UploadPanelProps) {
+export function UploadPanel({ file, onFileSelect, onAnalyze }: Props) {
   const [isDragging, setIsDragging] = useState(false);
 
   const handleDragEnter = (e: React.DragEvent) => {
@@ -111,6 +112,7 @@ export function UploadPanel({ file, onFileSelect }: UploadPanelProps) {
           <FilePreviewCard
             key="file-card"
             file={file}
+            onAnalyze={onAnalyze}
             onRemove={handleRemoveFile}
           />
         )}

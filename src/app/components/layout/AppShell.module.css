@@ -6,8 +6,9 @@
 }
 
 .header {
-  background-color: blueviolet;
   height: 80px;
+
+  border-bottom: 1px solid;
 }
 
 .main {

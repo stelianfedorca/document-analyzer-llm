@@ -1,11 +1,10 @@
 .layout {
   min-height: 100vh;
+  padding-top: 1rem;
 
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
-  padding-top: 1rem;
 }
 
 @media (min-width: 768px) {
@@ -13,7 +12,5 @@
     display: grid;
     grid-template-columns: 2fr 4fr;
     gap: 24px;
-
-    /* align-items: start; */
   }
 }

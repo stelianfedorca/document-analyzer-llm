@@ -1,6 +1,4 @@
 .container {
-  /* display: grid;
-  place-items: center; */
   position: relative;
 }
 
@@ -97,4 +95,10 @@
   .subtitleDesktop {
     display: revert;
   }
+}
+
+.previewWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
