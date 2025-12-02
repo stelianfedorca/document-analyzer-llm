@@ -4,16 +4,20 @@ A utility web application for analyzing and summarizing documents, built with Ne
 
 ## Features
 
-- **Drag & Drop Upload**: Intuitive interface for uploading documents.
+- **Drag & Drop Upload**: Intuitive interface for uploading documents with smooth animations.
 - **Multi-format Support**: Supports `.pdf`, `.doc`, `.docx`, and `.txt` files.
 - **Instant Preview**: View file details before processing.
-- **Document Analysis**: (In Progress) Summarize and analyze document content.
+- **Document Analysis**: Powered by OpenAI (GPT-4o/mini), providing structured summaries, risks, and negotiation points.
+- **Real-time Feedback**: Visual feedback for loading states and error handling.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
 
 ## Tech Stack
 
 - **Framework**: [Next.js](https://nextjs.org/) (App Router)
 - **UI Library**: [React](https://react.dev/)
+- **State Management**: [TanStack Query](https://tanstack.com/query/latest)
+- **AI Integration**: [OpenAI SDK](https://github.com/openai/openai-node)
+- **PDF Processing**: [pdf-parse](https://www.npmjs.com/package/pdf-parse)
 - **Styling**: CSS Modules with [clsx](https://github.com/lukeed/clsx)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Icons**: [React Icons](https://react-icons.github.io/react-icons/)
