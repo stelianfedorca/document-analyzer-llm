@@ -6,9 +6,15 @@ interface Props {
   file: File;
   onAnalyze: (file: File) => Promise<void>;
   onRemove: () => void;
+  isAnalyzing?: boolean;
 }
 
-export function FilePreviewCard({ file, onAnalyze, onRemove }: Props) {
+export function FilePreviewCard({
+  file,
+  onAnalyze,
+  onRemove,
+  isAnalyzing = false,
+}: Props) {
   const formatSize = (bytes: number) => {
     if (bytes === 0) return "0 Bytes";
     const k = 1024;
@@ -18,6 +24,7 @@ export function FilePreviewCard({ file, onAnalyze, onRemove }: Props) {
   };
 
   const handleAnalyze = async () => {
+    if (isAnalyzing) return;
     await onAnalyze(file);
   };
 
@@ -64,6 +71,7 @@ export function FilePreviewCard({ file, onAnalyze, onRemove }: Props) {
           onClick={onRemove}
           className={styles.removeButton}
           aria-label="Remove file"
+          disabled={isAnalyzing}
         >
           <FiX size={22} />
         </button>
@@ -73,8 +81,13 @@ export function FilePreviewCard({ file, onAnalyze, onRemove }: Props) {
         className={styles.analyzeButton}
         onClick={handleAnalyze}
         variants={itemVariants}
+        disabled={isAnalyzing}
+        style={{
+          opacity: isAnalyzing ? 0.7 : 1,
+          cursor: isAnalyzing ? "not-allowed" : "pointer",
+        }}
       >
-        <span>Analyze</span>
+        <span>{isAnalyzing ? "Analyzing..." : "Analyze"}</span>
       </motion.button>
     </motion.div>
   );
