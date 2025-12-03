@@ -40,9 +40,7 @@
   font-weight: 500;
   color: #1e293b;
   margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  min-width: fit-content;
 }
 
 .fileSize {
@@ -95,11 +93,17 @@
   font-size: 1rem;
 
   border-radius: 8px;
-  /* border-color: none; */
+  border: none;
 
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, outline 0.2s ease;
 }
 
 .analyzeButton:hover {
   background-color: #1e4583;
+}
+
+/* Accessible focus state for keyboard navigation */
+.analyzeButton:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
 }

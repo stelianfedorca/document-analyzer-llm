@@ -10,9 +10,15 @@ interface Props {
   file: File | null;
   onFileSelect: (file: File | null) => void;
   onAnalyze: (file: File) => Promise<void>;
+  isAnalyzing?: boolean;
 }
 
-export function UploadPanel({ file, onFileSelect, onAnalyze }: Props) {
+export function UploadPanel({
+  file,
+  onFileSelect,
+  onAnalyze,
+  isAnalyzing = false,
+}: Props) {
   const [isDragging, setIsDragging] = useState(false);
 
   const handleDragEnter = (e: React.DragEvent) => {
@@ -114,6 +120,7 @@ export function UploadPanel({ file, onFileSelect, onAnalyze }: Props) {
             file={file}
             onAnalyze={onAnalyze}
             onRemove={handleRemoveFile}
+            isAnalyzing={isAnalyzing}
           />
         )}
       </AnimatePresence>
