@@ -105,7 +105,7 @@ export function UploadPanel({
 
               <div className={styles.textStack}>
                 <h3 id="upload-heading" className={styles.title}>
-                  Import your file
+                  Import your document
                 </h3>
                 <p className={styles.subtitle}>Click to upload</p>
                 <p className={styles.subtitleDesktop}>

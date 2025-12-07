@@ -1,33 +1,35 @@
 .container {
   position: relative;
+  height: 100%;
 }
 
 .uploadArea {
-  height: 100%;
   width: 100%;
   border: 2px dashed #e2e8f0;
-  border-radius: 8px;
-
+  border-radius: 16px;
+  background-color: #f8fafc;
   display: flex;
   justify-content: center;
-  align-items: center;
-
-  transition: border-color 0.3s ease, background-color 0.3s ease;
+  align-items: stretch;
+  transition: all 0.3s ease;
+  min-height: 300px;
 }
 
 .uploadArea:hover {
   border-color: #94a3b8;
-  background-color: #f6f6f6;
+  background-color: #f1f5f9;
 }
 
 .uploadArea.active {
   border-color: #6366f1;
   background: #eef2ff;
+  transform: scale(0.99);
 }
 
 @media (min-width: 1100px) {
   .uploadArea {
     height: auto;
+    min-height: 400px;
   }
 }
 
@@ -50,50 +52,59 @@
 }
 
 .dropArea {
-  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 1.5rem;
   text-align: center;
   cursor: pointer;
   outline: none;
-
-  padding: 2rem 1rem;
 }
 
 .iconWrap {
   width: 80px;
   height: 80px;
-  border-radius: 50%;
+  border-radius: 24px;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #64748b;
-  font-size: 48px;
+  color: #94a3b8;
+  font-size: 40px;
+  background: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
 
-  background: transparent;
+.uploadArea:hover .iconWrap {
+  color: #64748b;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }
 
 .textStack {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .title {
   color: #1e293b;
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
 .subtitle {
   color: #64748b;
+  font-size: 0.95rem;
 }
 
 .subtitleDesktop {
   color: #64748b;
   display: none;
+  font-size: 0.95rem;
 }
 
 @media (min-width: 1100px) {

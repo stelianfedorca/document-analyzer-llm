@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, Part } from "@google/genai";
 
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-type SummaryResponse = {
+export type SummaryResponse = {
   title: string;
-  mainPoints: string[];
-  overallSummary: string;
   documentType: string;
+  mainPoints: string[];
+  overallSummary: string[];
 };
 
 export async function POST(req: NextRequest) {
@@ -150,6 +150,57 @@ export async function POST(req: NextRequest) {
 
     // return NextResponse.json({ analysis: content });
 
+    const systemPrompt = `
+You are an assistant that summarizes arbitrary documents for a busy professional.
+
+You will receive a single document. It might be:
+- a contract or NDA
+- terms & conditions or a policy
+- a report, article, or whitepaper
+- a resume/CV or LinkedIn profile export
+- an email thread or meeting notes
+- an invoice, quote, or purchase order
+- a product spec, technical design, or requirements document
+- something else (presentation, letter, etc.)
+
+Your job is to read the document and fill the following JSON fields in a way that is genuinely useful for a busy reader:
+
+- title (string):
+  • A short, human-friendly title for the document *or* its main topic.
+  • If there is an obvious title in the document, reuse or polish it.
+  • If not, invent a concise, descriptive title based on the content.
+
+- documentType (string):
+  • A short label for the kind of document, in English.
+  • Examples: "contract", "nda", "resume", "cv", "article", "report", "invoice",
+    "email", "meeting notes", "policy", "terms of service", "spec", "other".
+  • Use a single, simple word or short phrase. Do NOT return long sentences here.
+
+- mainPoints (string[]):
+  • 3–7 bullet-point style strings.
+  • Each item should be a clear, standalone idea (like bullet points in a slide).
+  • Focus on what a busy professional would care about:
+    - For contracts: parties, obligations, money, deadlines, termination, unusual clauses.
+    - For resumes/CVs: seniority, core skills, technologies, experience level, industries.
+    - For reports/articles: key findings, metrics, conclusions, recommendations.
+    - For emails/meeting notes: decisions, next steps, owners, deadlines.
+    - For invoices/quotes: who pays, how much, for what, due date, payment terms.
+    - For specs/technical docs: scope, main features, constraints, risks, dependencies.
+
+- overallSummary (string[]):
+  • An array of 1–3 short paragraphs.
+  • Each array item is one paragraph (1–3 sentences).
+  • Together they should:
+    - Explain the big picture: why this document exists and what it means for the reader.
+    - Highlight any important decisions, risks, ambiguities, or missing information.
+    - Stay readable and non-technical where possible.
+
+General rules:
+- Do NOT invent facts that are not clearly supported by the document.
+- If important parts seem missing, cut off, or unreadable, clearly say that.
+- If you are unsure about something (e.g. exact amount, date, party), acknowledge the uncertainty.
+- Write as if the reader is smart but busy: be concise, specific, and practical.
+`.trim();
     const summarySchema = {
       type: "object",
       properties: {
@@ -158,61 +209,59 @@ export async function POST(req: NextRequest) {
           type: "array",
           items: { type: "string" },
         },
-        overallSummary: { type: "string" },
+        overallSummary: {
+          type: "array",
+          items: {
+            type: "string",
+            description:
+              "One short, standalone paragraph of the overall summary (1–3 sentences).",
+          },
+          minItems: 1,
+          maxItems: 3,
+        },
         documentType: { type: "string" },
       },
       required: ["title", "mainPoints", "overallSummary", "documentType"],
     } as const;
+
+    const userParts: Part[] = [
+      {
+        text: "Analyze the following document and fill the JSON fields according to your system instructions.",
+      },
+    ];
+
+    if (file.type === "application/pdf") {
+      userParts.push({
+        inlineData: {
+          mimeType: "application/pdf",
+          data: base64,
+        },
+      });
+    } else {
+      userParts.push({
+        text: textContent,
+      });
+    }
 
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: [
         {
           role: "user",
-          parts: [
-            {
-              text: `
-You will analyze a document and return a JSON summary.
-
-Rules:
-- Use clear, simple language.
-- 3–5 main bullet points.
-- One short overall summary paragraph.
-- Guess documentType (e.g. "contract", "privacy policy", "terms of service", "other").
-          `.trim(),
-            },
-            {
-              inlineData: {
-                mimeType: "application/pdf",
-                data: base64,
-              },
-            },
-          ],
+          parts: userParts,
         },
       ],
       config: {
-        // Setting temperature low (e.g., 0.2) encourages factual and deterministic output
         temperature: 0.2,
         responseMimeType: "application/json",
         responseSchema: summarySchema,
-        //         systemInstruction: {
-        //           parts: [
-        //             {
-        //               text: `
-        //               You are an expert text analysis and summarization specialist. Your task is to carefully read the provided document and generate a concise yet comprehensive summary.
-
-        // Formatting and Style Rules:
-        // 1.  **Length:** The final summary must not exceed 300 words.
-        // 2.  **Tone:** Use an objective and professional tone.
-        // 3.  **Format:** Present the summary using a short list of 3-5 main bullet points, followed by a concluding general paragraph.
-        // 4.  **Attention:** Retain specific domain terminology found in the document.
-        // 5.  **Output:** Respond **only** with the summary, without any additional introductions or personal commentary.
-        // `,
-        //             },
-        //           ],
-        //         },
+        systemInstruction: {
+          parts: [{ text: systemPrompt }],
+        },
       },
     });
+
+    console.log(response.text);
 
     return NextResponse.json({ analysis: response.text });
   } catch (error: any) {
@@ -225,3 +274,12 @@ Rules:
     );
   }
 }
+
+/**
+ * 
+ * - overallSummary (string):
+  • 1–2 short paragraphs that tie everything together.
+  • Explain the big picture: why this document exists and what it means for the reader.
+  • Highlight any risks, ambiguities, missing information, or important decisions.
+  • Use simple, non-legal, non-jargon-heavy language whenever possible.
+ */

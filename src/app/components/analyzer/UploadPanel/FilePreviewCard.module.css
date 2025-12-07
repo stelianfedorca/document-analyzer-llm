@@ -6,21 +6,29 @@
 
 .card {
   width: 100%;
-  padding: 1rem;
+  padding: 1.25rem;
   background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   gap: 1rem;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05),
+    0 4px 6px -2px rgba(0, 0, 0, 0.025);
 }
 
 .iconWrapper {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  background: #e0e7ff;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #3b82f6;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +36,7 @@
 }
 
 .icon {
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .info {
@@ -37,72 +45,90 @@
 }
 
 .fileName {
-  font-weight: 500;
+  font-weight: 600;
   color: #1e293b;
   margin: 0;
-  min-width: fit-content;
+  font-size: 0.95rem;
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .fileSize {
   color: #64748b;
   margin: 0;
-  margin-top: 2px;
+  margin-top: 4px;
+  font-size: 0.85rem;
 }
 
 .removeButton {
   position: relative;
-  border-radius: 6px;
+  border-radius: 8px;
   border: none;
-
+  width: 32px;
+  height: 32px;
   background-color: transparent;
   color: #94a3b8;
-
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .removeButton:hover {
-  background-color: #f1f5f9;
+  background-color: #fee2e2;
   color: #ef4444;
 }
 
-/* 
-  Pseudo element used to increase the click target size (minimum 44x44 by Apple recommendation)
-*/
 .removeButton::after {
-  --click-target-minimum: 44px;
-  --inset-by: min(0px, calc((100% - var(--click-target-minimum)) / 2));
-
-  position: absolute;
   content: "";
-  top: var(--inset-by);
-  left: var(--inset-by);
-  right: var(--inset-by);
-  bottom: var(--inset-by);
+  position: absolute;
+  inset: -8px;
 }
 
 .analyzeButton {
-  background-color: #2153a6;
-  color: #fafafa;
-
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: #ffffff;
   cursor: pointer;
-  padding: 0.75rem 1rem;
+  padding: 1rem;
   font-size: 1rem;
-
-  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  border-radius: 12px;
   border: none;
-
-  transition: background-color 0.2s ease, outline 0.2s ease;
+  width: 100%;
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2),
+    0 2px 4px -1px rgba(37, 99, 235, 0.1);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.analyzeButton:hover {
-  background-color: #1e4583;
+.analyzeButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3),
+    0 4px 6px -2px rgba(37, 99, 235, 0.15);
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
 }
 
-/* Accessible focus state for keyboard navigation */
+.analyzeButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.analyzeButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background: #94a3b8;
+  box-shadow: none;
+}
+
 .analyzeButton:focus-visible {
   outline: 2px solid #60a5fa;
   outline-offset: 2px;

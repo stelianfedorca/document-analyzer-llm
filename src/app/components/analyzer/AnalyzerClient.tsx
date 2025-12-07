@@ -5,6 +5,7 @@ import AnalyzerLayout from "./AnalyzerLayout";
 import { ResultPanel } from "./ResultPanel/ResultPanel";
 import { UploadPanel } from "./UploadPanel/UploadPanel";
 import { useMutation } from "@tanstack/react-query";
+import { SummaryResponse } from "@/app/api/analyze/route";
 
 export function AnalyzerClient() {
   const [file, setFile] = useState<File | null>(null);
@@ -22,7 +23,10 @@ export function AnalyzerClient() {
         throw new Error(errorData.error || "Analysis failed");
       }
 
-      return response.json();
+      const { analysis } = await response.json();
+      const parsedAnalysis = JSON.parse(analysis) as SummaryResponse;
+
+      return parsedAnalysis;
     },
   });
 
@@ -39,7 +43,7 @@ export function AnalyzerClient() {
         isAnalyzing={mutation.isPending}
       />
       <ResultPanel
-        results={mutation.data}
+        data={mutation.data}
         isLoading={mutation.isPending}
         error={mutation.error}
       />
