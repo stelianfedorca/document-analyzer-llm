@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiUploadCloud } from "react-icons/fi";
 import styles from "./UploadPanel.module.css";
-import { FilePreviewCard } from "./FilePreviewCard";
+import { FilePreviewCard } from "@/features/analyze/components/FilePreviewCard";
 
 interface Props {
   file: File | null;
@@ -13,7 +13,7 @@ interface Props {
   isAnalyzing?: boolean;
 }
 
-export function UploadPanel({
+export function UploadView({
   file,
   onFileSelect,
   onAnalyze,
