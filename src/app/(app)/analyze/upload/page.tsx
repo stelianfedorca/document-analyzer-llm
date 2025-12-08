@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import { AnalyzerClient } from "../../../../components/analyze/AnalyzerClient";
+import { AnalyzerClient } from "../../../../components/AnalyzerClient";
 
 export default function UploadPage() {
   return (

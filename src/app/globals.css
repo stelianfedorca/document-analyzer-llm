@@ -40,21 +40,6 @@ a {
   text-decoration: none;
 }
 
-.maxWidthWrapper {
-  width: 100%;
-  /* max-width: 1280px; */
-  max-width: var(--max-width);
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 16px;
-}
-
-@media (min-width: 768px) {
-  .maxWidthWrapper {
-    padding: 0 32px;
-  }
-}
-
 .maxReadingWidth {
   max-width: 65ch;
   width: 100%;

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiUploadCloud } from "react-icons/fi";
 import styles from "./UploadPanel.module.css";
-import { FilePreviewCard } from "../../../features/analyze/components/FilePreviewCard/FilePreviewCard";
+import { FilePreviewCard } from "../../features/analyze/components/FilePreviewCard/FilePreviewCard";
 
 interface Props {
   file: File | null;
