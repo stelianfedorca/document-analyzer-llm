@@ -95,7 +95,9 @@ export function UploadPanel({
                 className={styles.iconWrap}
                 animate={{
                   scale: isDragging ? 1.1 : 1,
-                  backgroundColor: isDragging ? "#e0e7ff" : "transparent",
+                  backgroundColor: isDragging
+                    ? "#e0e7ff"
+                    : "hsl(0 0% 100% / 0)",
                   color: isDragging ? "#4f46e5" : "#64748b",
                 }}
                 transition={{ duration: 0.2 }}
