@@ -51,7 +51,7 @@ export function DropZone({ onFileSelected }: Props) {
           animate={{
             scale: isDragActive ? 1.1 : 1,
             backgroundColor: isDragActive ? "#e0e7ff" : "hsl(0 0% 100% / 0)",
-            color: isDragActive ? "#4f46e5" : "#259DF4",
+            color: isDragActive ? "#4f46e5" : "#94a3b8",
           }}
           transition={{ duration: 0.1 }}
         >
@@ -64,6 +64,9 @@ export function DropZone({ onFileSelected }: Props) {
           </h3>
           <p className={styles.subtitle}>Click to upload</p>
           <p className={styles.subtitleDesktop}>Drag or click to upload</p>
+          <p className={styles.subtitleDesktop}>
+            Supported formats: PDF, DOCX, TXT
+          </p>
         </div>
       </div>
     </motion.div>

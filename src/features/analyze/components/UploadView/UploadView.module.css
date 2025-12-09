@@ -16,9 +16,25 @@
 }
 
 .mainContent {
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar {
+}
+
+.analyzeButton {
+  /* mobile */
+  align-self: stretch;
+
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .analyzeButton {
+    align-self: center;
+    min-width: 350px;
+  }
 }
 
 @media (min-width: 1100px) {
@@ -29,5 +45,6 @@
     /* grid layout on desktop */
     display: grid;
     grid-template-columns: 1fr minmax(300px, 350px);
+    gap: 6rem;
   }
 }

@@ -8,6 +8,7 @@ import { useAnalyzeDocument } from "@/features/analyze/hooks";
 import { useRouter } from "next/navigation";
 import { DropZone } from "../DropZone";
 import { RecentAnalysisList } from "@/features/history/components/RecentAnalysisList";
+import { Button } from "@/components/ui/Button";
 
 export function UploadView() {
   const [file, setFile] = useState<File | null>(null);
@@ -54,7 +55,14 @@ export function UploadView() {
             )}
           </AnimatePresence>
 
-          <button onClick={handleAnalyzeDocument}>Analyze button</button>
+          <Button
+            variant="primary"
+            size="md"
+            onClick={handleAnalyzeDocument}
+            className={styles.analyzeButton}
+          >
+            Analyze button
+          </Button>
         </div>
 
         <aside className={styles.sidebar}>

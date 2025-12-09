@@ -8,7 +8,7 @@ export function RecentAnalysisList() {
 
   if (analyses.length === 0) {
     return (
-      <div className={styles.emptyState}>
+      <div className={styles.emptyStateContainer}>
         <div className={styles.illustration}>
           <div className={styles.row}>
             <FiFileText className={styles.docIcon} />
@@ -33,9 +33,9 @@ export function RecentAnalysisList() {
           document.
         </p>
 
-        <Link href="/analyze/upload" className={styles.ctaLink}>
+        {/* <Link href="/analyze/upload" className={styles.ctaLink}>
           Analyze a document
-        </Link>
+        </Link> */}
       </div>
     );
   }
