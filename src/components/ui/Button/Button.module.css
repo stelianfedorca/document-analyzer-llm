@@ -7,7 +7,7 @@
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
+  transition: background-color 0.2s, transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   /* width: 100%; */
 }
@@ -20,12 +20,26 @@
 }
 /* Variants */
 .primary {
-  background-color: var(--primary); /* Your blue */
+  background-color: #2563eb; /* Your blue */
   color: white;
+
+  transition: all 0.2s ease;
+
+  /* Realistic depth shadows */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 .primary:hover:not(:disabled) {
-  background-color: #2a9ad8;
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
+
+.primary:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* Reset shadow */
+}
+
 .secondary {
   background-color: #e5e7eb;
   color: #1f2937;
