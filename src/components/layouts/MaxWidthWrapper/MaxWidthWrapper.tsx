@@ -5,5 +5,5 @@ export default function MaxWidthWrapper({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className={styles.wrapper}>{children}</div>;
+  return <div className={styles.container}>{children}</div>;
 }

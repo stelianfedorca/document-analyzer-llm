@@ -1,10 +1,11 @@
 import { FiActivity, FiAlertCircle, FiCheckCircle } from "react-icons/fi";
 import styles from "./ResultPanel.module.css";
-import { SummaryResponse } from "@/app/api/analyze/route";
 import clsx from "clsx";
+import { LoadingState } from "../ui/LoadingState";
+import { AnalysisReportResponse } from "@/features/analyze/types";
 
 interface Props {
-  data?: SummaryResponse;
+  data?: AnalysisReportResponse;
   isLoading: boolean;
   error: Error | null;
 }
@@ -18,17 +19,18 @@ function formatDocType(docType?: string) {
 export function ResultPanel({ data, isLoading, error }: Props) {
   if (isLoading) {
     return (
-      <div className={styles.container}>
-        <div className={styles.placeholder}>
-          <div className={`${styles.iconWrapper} ${styles.loading}`}>
-            <FiActivity className={`${styles.icon} ${styles.spin}`} />
-          </div>
-          <h3 className={styles.title}>Analyzing document...</h3>
-          <p className={styles.subtitle}>
-            This may take a few moments. Please wait.
-          </p>
-        </div>
-      </div>
+      <LoadingState />
+      // <div className={styles.container}>
+      //   <div className={styles.placeholder}>
+      //     <div className={`${styles.iconWrapper} ${styles.loading}`}>
+      //       <FiActivity className={`${styles.icon} ${styles.spin}`} />
+      //     </div>
+      //     <h3 className={styles.title}>Analyzing document...</h3>
+      //     <p className={styles.subtitle}>
+      //       This may take a few moments. Please wait.
+      //     </p>
+      //   </div>
+      // </div>
     );
   }
 

@@ -4,13 +4,6 @@ import { GoogleGenAI, Part } from "@google/genai";
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-export type SummaryResponse = {
-  title: string;
-  documentType: string;
-  mainPoints: string[];
-  overallSummary: string[];
-};
-
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();

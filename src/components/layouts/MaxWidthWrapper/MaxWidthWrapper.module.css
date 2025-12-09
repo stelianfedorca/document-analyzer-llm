@@ -1,4 +1,7 @@
-.wrapper {
+.container {
+  --max-width-px: 1200; /* 1100px */
+  --max-width: calc(var(--max-width-px) / 16 * 1rem);
+
   width: 100%;
   max-width: var(--max-width);
   margin-left: auto;
@@ -7,7 +10,7 @@
 }
 
 @media (min-width: 768px) {
-  .wrapper {
+  .container {
     padding: 0 32px;
   }
 }

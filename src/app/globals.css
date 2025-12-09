@@ -1,9 +1,6 @@
 :root {
   --background: #fafafa;
   --foreground: #171717;
-
-  --max-width-px: 1100;
-  --max-width: calc(var(--max-width-px) / 16 * 1rem);
 }
 
 /* @media (prefers-color-scheme: dark) {

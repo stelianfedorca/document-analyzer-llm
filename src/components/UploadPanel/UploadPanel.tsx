@@ -60,6 +60,12 @@ export function UploadPanel({
     onFileSelect(null);
   };
 
+  const handleAnalyzeDocument = async () => {
+    if (!file || isAnalyzing) return;
+
+    await onAnalyze(file);
+  };
+
   return (
     <section className={styles.container} aria-labelledby="upload-heading">
       <AnimatePresence mode="wait">
@@ -117,13 +123,15 @@ export function UploadPanel({
             </label>
           </motion.div>
         ) : (
-          <FilePreviewCard
-            key="file-card"
-            file={file}
-            onAnalyze={onAnalyze}
-            onRemove={handleRemoveFile}
-            isAnalyzing={isAnalyzing}
-          />
+          <>
+            <FilePreviewCard
+              key="file-card"
+              file={file}
+              onRemove={handleRemoveFile}
+              isAnalyzing={isAnalyzing}
+            />
+            <button onClick={handleAnalyzeDocument}>Analyze button</button>
+          </>
         )}
       </AnimatePresence>
     </section>

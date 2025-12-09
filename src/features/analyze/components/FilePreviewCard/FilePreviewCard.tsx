@@ -4,14 +4,12 @@ import styles from "./FilePreviewCard.module.css";
 
 interface Props {
   file: File;
-  onAnalyze: (file: File) => Promise<void>;
   onRemove: () => void;
   isAnalyzing?: boolean;
 }
 
 export function FilePreviewCard({
   file,
-  onAnalyze,
   onRemove,
   isAnalyzing = false,
 }: Props) {
@@ -21,11 +19,6 @@ export function FilePreviewCard({
     const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
-  };
-
-  const handleAnalyze = async () => {
-    if (isAnalyzing) return;
-    await onAnalyze(file);
   };
 
   /*
@@ -51,7 +44,7 @@ export function FilePreviewCard({
 
   return (
     <motion.div
-      className={styles.wrapper}
+      className={styles.container}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -71,15 +64,13 @@ export function FilePreviewCard({
           onClick={onRemove}
           className={styles.removeButton}
           aria-label="Remove file"
-          disabled={isAnalyzing}
         >
           <FiX size={22} />
         </button>
       </motion.div>
 
-      <motion.button
+      {/* <motion.button
         className={styles.analyzeButton}
-        onClick={handleAnalyze}
         variants={itemVariants}
         disabled={isAnalyzing}
         style={{
@@ -88,7 +79,7 @@ export function FilePreviewCard({
         }}
       >
         <span>{isAnalyzing ? "Analyzing..." : "Analyze"}</span>
-      </motion.button>
+      </motion.button> */}
     </motion.div>
   );
 }
