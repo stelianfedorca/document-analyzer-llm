@@ -2,12 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiUploadCloud } from "react-icons/fi";
 import styles from "./UploadView.module.css";
 import { FilePreviewCard } from "@/features/analyze/components/FilePreviewCard";
 import { useAnalyzeDocument } from "@/features/analyze/hooks";
 import { useRouter } from "next/navigation";
-import clsx from "clsx";
 import { DropZone } from "../DropZone";
 
 export function UploadView() {
@@ -32,13 +30,23 @@ export function UploadView() {
 
       <AnimatePresence mode="wait">
         {file ? (
-          <FilePreviewCard
-            key="file-preview-card"
-            file={file}
-            onRemove={handleRemoveFile}
-          />
+          <motion.div
+            key="file-preview"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <FilePreviewCard file={file} onRemove={handleRemoveFile} />
+          </motion.div>
         ) : (
-          <motion.div>
+          <motion.div
+            key="drop-zone"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
             <DropZone onFileSelected={setFile} />
           </motion.div>
         )}

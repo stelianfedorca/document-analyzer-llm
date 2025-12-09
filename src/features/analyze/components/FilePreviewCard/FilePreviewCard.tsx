@@ -43,14 +43,8 @@ export function FilePreviewCard({
   };
 
   return (
-    <motion.div
-      className={styles.container}
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-    >
-      <motion.div className={styles.card} variants={itemVariants}>
+    <motion.div className={styles.container}>
+      <motion.div className={styles.card}>
         <div className={styles.iconWrapper}>
           <FiFileText className={styles.icon} />
         </div>

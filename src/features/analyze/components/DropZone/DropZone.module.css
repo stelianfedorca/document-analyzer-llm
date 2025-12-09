@@ -68,16 +68,16 @@
   align-items: center;
   justify-content: center;
   color: #94a3b8;
-  font-size: 40px;
+  font-size: 48px;
   background: #ffffff;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); */
   transition: all 0.3s ease;
 }
 
 .container:hover .iconWrap {
   color: #64748b;
   transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); */
 }
 
 .textStack {

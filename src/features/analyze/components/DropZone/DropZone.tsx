@@ -2,7 +2,8 @@
 
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 import { FiUploadCloud } from "react-icons/fi";
 
 import styles from "./DropZone.module.css";
@@ -12,79 +13,47 @@ interface Props {
 }
 
 export function DropZone({ onFileSelected }: Props) {
-  const [isDragging, setIsDragging] = useState(false);
+  const handleDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const [file] = acceptedFiles;
+      if (file) {
+        onFileSelected(file);
+      }
+    },
+    [onFileSelected]
+  );
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      onFileSelected(e.target.files[0]);
-    }
-  };
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: handleDrop,
+    multiple: false,
+    accept: {
+      "application/pdf": [".pdf"],
+      "application/msword": [".doc"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        [".docx"],
+      "text/plain": [".txt"],
+    },
+  });
 
-  const handleDragEnter = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(true);
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-
-    const droppedFiles = e.dataTransfer.files;
-    if (droppedFiles && droppedFiles.length > 0) {
-      onFileSelected(droppedFiles[0]);
-    }
-  };
+  const rootProps = getRootProps({
+    className: clsx(styles.container, {
+      [styles.active]: isDragActive,
+    }),
+  });
 
   return (
-    <motion.div
-      key="drop-zone"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.2 }}
-      className={clsx(styles.container, {
-        [styles.active]: isDragging,
-      })}
-    >
-      <input
-        id="file-input"
-        type="file"
-        accept=".pdf,.doc,.docx,.txt"
-        className={styles.input}
-        onChange={handleFileChange}
-      />
+    <motion.div {...rootProps}>
+      <input {...getInputProps({ className: styles.input })} />
 
-      <label
-        htmlFor="file-input"
-        className={styles.dropArea}
-        role="button"
-        onDragEnter={handleDragEnter}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-      >
+      <div className={styles.dropArea}>
         <motion.div
           className={styles.iconWrap}
           animate={{
-            scale: isDragging ? 1.1 : 1,
-            backgroundColor: isDragging ? "#e0e7ff" : "transparent",
-            color: isDragging ? "#4f46e5" : "#64748b",
+            scale: isDragActive ? 1.1 : 1,
+            backgroundColor: isDragActive ? "#e0e7ff" : "hsl(0 0% 100% / 0)",
+            color: isDragActive ? "#4f46e5" : "#64748b",
           }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.1 }}
         >
           <FiUploadCloud className={styles.icon} />
         </motion.div>
@@ -96,7 +65,7 @@ export function DropZone({ onFileSelected }: Props) {
           <p className={styles.subtitle}>Click to upload</p>
           <p className={styles.subtitleDesktop}>Drag or click to upload</p>
         </div>
-      </label>
+      </div>
     </motion.div>
   );
 }
