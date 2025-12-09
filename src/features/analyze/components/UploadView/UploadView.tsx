@@ -7,6 +7,7 @@ import { FilePreviewCard } from "@/features/analyze/components/FilePreviewCard";
 import { useAnalyzeDocument } from "@/features/analyze/hooks";
 import { useRouter } from "next/navigation";
 import { DropZone } from "../DropZone";
+import { RecentAnalysisList } from "@/features/history/components/RecentAnalysisList";
 
 export function UploadView() {
   const [file, setFile] = useState<File | null>(null);
@@ -27,32 +28,39 @@ export function UploadView() {
   return (
     <section className={styles.container}>
       <h1 className={styles.title}>Start a new analysis</h1>
+      <div className={styles.content}>
+        <div className={styles.mainContent}>
+          <AnimatePresence mode="wait">
+            {file ? (
+              <motion.div
+                key="file-preview"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <FilePreviewCard file={file} onRemove={handleRemoveFile} />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="drop-zone"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+              >
+                <DropZone onFileSelected={setFile} />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-      <AnimatePresence mode="wait">
-        {file ? (
-          <motion.div
-            key="file-preview"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <FilePreviewCard file={file} onRemove={handleRemoveFile} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="drop-zone"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-          >
-            <DropZone onFileSelected={setFile} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+          <button onClick={handleAnalyzeDocument}>Analyze button</button>
+        </div>
 
-      <button onClick={handleAnalyzeDocument}>Analyze button</button>
+        <aside className={styles.sidebar}>
+          <RecentAnalysisList />
+        </aside>
+      </div>
     </section>
   );
 }

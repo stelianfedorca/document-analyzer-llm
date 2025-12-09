@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: stretch;
   transition: all 0.3s ease;
-  min-height: 300px;
+  min-height: 220px;
 
   width: 100%;
 }
@@ -24,8 +24,8 @@
 
 @media (min-width: 1100px) {
   .container {
-    height: auto;
-    /* min-height: 400px; */
+    /* height: auto; */
+    min-height: 300px;
   }
 }
 
@@ -53,21 +53,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1rem;
   text-align: center;
   cursor: pointer;
   outline: none;
 }
 
 .iconWrap {
-  width: 80px;
-  height: 80px;
   border-radius: 24px;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #94a3b8;
+  /* color: #94a3b8; */
+  color: #259df4;
   font-size: 48px;
   background: #ffffff;
   /* box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); */
@@ -75,7 +74,7 @@
 }
 
 .container:hover .iconWrap {
-  color: #64748b;
+  /* color: #64748b; */
   transform: translateY(-2px);
   /* box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); */
 }
