@@ -1,0 +1,33 @@
+.container {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: 80px;
+  background-color: #ffff;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  border-bottom: 1px solid;
+
+  backdrop-filter: blur(12px);
+}
+
+.main {
+  flex: 1;
+
+  padding-top: calc(3rem + var(--header-height));
+  padding-bottom: 3rem;
+}
+
+.footer {
+  height: 150px;
+  border: "1px solid";
+  border-color: #e5e7eb;
+  background-color: #ffff;
+}

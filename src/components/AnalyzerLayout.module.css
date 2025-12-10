@@ -1,0 +1,18 @@
+.layout {
+  min-height: 100vh;
+  padding-top: 32px;
+  padding-bottom: 32px;
+
+  display: grid;
+  grid-template-rows: minmax(100px, 170px) 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(300px, 400px) 1fr;
+    grid-template-rows: revert;
+    gap: 24px;
+  }
+}
