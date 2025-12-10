@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/Button";
 
 export function UploadView() {
   const [file, setFile] = useState<File | null>(null);
+  const isCtaDisabled = file === null;
   const router = useRouter();
 
   const handleRemoveFile = () => {
@@ -60,8 +61,9 @@ export function UploadView() {
             size="md"
             onClick={handleAnalyzeDocument}
             className={styles.analyzeButton}
+            disabled={isCtaDisabled}
           >
-            Analyze button
+            Analyze Document
           </Button>
         </div>
 

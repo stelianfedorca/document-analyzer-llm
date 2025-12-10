@@ -1,5 +1,5 @@
 .container {
-  --max-width-px: 1200; /* 1100px */
+  --max-width-px: 1200; /* 1200px */
   --max-width: calc(var(--max-width-px) / 16 * 1rem);
 
   width: 100%;

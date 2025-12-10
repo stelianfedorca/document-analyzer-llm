@@ -14,13 +14,14 @@
 .button:active {
   transform: scale(0.98);
 }
+
 .button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 /* Variants */
 .primary {
-  background-color: #2563eb; /* Your blue */
+  background-color: var(--primary);
   color: white;
 
   transition: all 0.2s ease;

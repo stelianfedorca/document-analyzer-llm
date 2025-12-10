@@ -1,0 +1,61 @@
+.header {
+  height: var(--header-height);
+  background-color: #ffff;
+  border-bottom: 1px solid #e2e8f0;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  --max-width-px: 1200; /* 1200px */
+  --max-width: calc(var(--max-width-px) / 16 * 1rem);
+
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 16px;
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+.logoText {
+  color: var(--text-primary, #0f172a);
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #134876;
+}

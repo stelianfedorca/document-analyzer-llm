@@ -6,13 +6,14 @@
 
   display: flex;
   flex-direction: column;
+  gap: 4rem;
 }
 
 .content {
   /* flex layout on mobile */
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 6rem;
 }
 
 .mainContent {
