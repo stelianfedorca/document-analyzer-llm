@@ -2,7 +2,7 @@ import { FiActivity, FiAlertCircle, FiCheckCircle } from "react-icons/fi";
 import styles from "./ResultPanel.module.css";
 import clsx from "clsx";
 import { LoadingState } from "../ui/LoadingState";
-import { AnalysisReportResponse } from "@/features/analyze/types";
+import { AnalysisReportResponse } from "@/lib/gemini";
 
 interface Props {
   data?: AnalysisReportResponse;

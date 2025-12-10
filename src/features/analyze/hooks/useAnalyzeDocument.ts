@@ -1,7 +1,7 @@
 "use client";
 
+import { AnalysisReportResponse } from "@/lib/gemini";
 import { useMutation } from "@tanstack/react-query";
-import { AnalysisReportResponse } from "../types";
 
 export function useAnalyzeDocument() {
   async function analyzeDocument(file: File) {
