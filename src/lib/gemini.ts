@@ -1,4 +1,7 @@
 import { GoogleGenAI, Part } from "@google/genai";
+import mockAnalysisResponse from "@/mocks/analysis-response.json";
+
+const MOCK_ANALYSIS_RESPONSE = mockAnalysisResponse as AnalysisReportResponse;
 
 const GEMINI_MODEL = "gemini-2.5-flash";
 
@@ -96,6 +99,10 @@ export const ANALYSIS_REPORT_SCHEMA = {
 
 // purely input -> output, no HTTP logic here
 export async function analyzeDocument(fileData: string, mimeType: string) {
+  if (process.env.GEMINI_MODE === "mock") {
+    return MOCK_ANALYSIS_RESPONSE;
+  }
+
   const userParts: Part[] = [
     {
       text: "Analyze the following document and fill the JSON fields according to your system instructions.",

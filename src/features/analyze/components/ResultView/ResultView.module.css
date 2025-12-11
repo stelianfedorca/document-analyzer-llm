@@ -23,7 +23,6 @@
   color: #0f172a;
   font-size: 1.125rem;
   font-weight: 600;
-  margin: 0;
 }
 
 .header span {
@@ -152,4 +151,9 @@
 
 .paragraph {
   margin-bottom: 0.65rem;
+}
+
+.docType {
+  font-size: 1rem;
+  text-align: center;
 }

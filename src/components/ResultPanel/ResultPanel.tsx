@@ -54,32 +54,41 @@ export function ResultPanel({ data, isLoading, error }: Props) {
     console.log(data.overallSummary);
     return (
       <section className={clsx(styles.container)}>
-        <div>
-          <header className={styles.header}>
-            <h2 className={styles.title}>{data.title || "Summary"}</h2>
-            <span>{formatDocType(data.documentType)}</span>
-          </header>
-        </div>
+        <header className={styles.header}>
+          <h2 className={styles.title}>{data.title || "Summary"}</h2>
+          <span className={styles.docType}>
+            {formatDocType(data.documentType)}
+          </span>
+        </header>
         <div className={styles.contentSection}>
-          <h2 className={styles.sectionTitle}>Main Points</h2>
-          <ul className={clsx(styles.mainPointsList, "maxReadingWidth")}>
-            {data.mainPoints.map((point, index) => {
-              return <li key={index}>{point}</li>;
-            })}
-          </ul>
+          <div className={styles.contentSectionInner}>
+            <h2 className={styles.sectionTitle}>Main Points</h2>
+            <ul className={clsx(styles.mainPointsList)}>
+              {data.mainPoints.map((point, index) => {
+                return (
+                  <li key={index}>
+                    {/* {point} */}
+                    <p>{point}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
 
         <div className={clsx(styles.contentSection)}>
-          <h2 className={styles.sectionTitle}>Overall summary</h2>
-          <div className={clsx(styles.summary, "maxReadingWidth")}>
-            {data.overallSummary.map(
-              (paragraph, idx) =>
-                paragraph.trim() && (
-                  <p key={idx} className={styles.paragraph}>
-                    {paragraph}
-                  </p>
-                )
-            )}
+          <div className={styles.contentSectionInner}>
+            <h2 className={styles.sectionTitle}>Overall summary</h2>
+            <div className={clsx(styles.summary)}>
+              {data.overallSummary.map(
+                (paragraph, idx) =>
+                  paragraph.trim() && (
+                    <p key={idx} className={styles.paragraph}>
+                      {paragraph}
+                    </p>
+                  )
+              )}
+            </div>
           </div>
         </div>
       </section>

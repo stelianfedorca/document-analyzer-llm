@@ -27,6 +27,8 @@ export async function POST(req: NextRequest) {
       processedFile.mimeType
     );
 
+    console.log("analysis in route: ", analysis);
+
     return NextResponse.json({ analysis });
   } catch (error: any) {
     console.error(error);

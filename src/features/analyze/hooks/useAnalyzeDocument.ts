@@ -23,6 +23,8 @@ export function useAnalyzeDocument() {
 
     const parsedAnalysis = JSON.parse(analysis) as AnalysisReportResponse;
 
+    console.log("analysis in custom hook: ", parsedAnalysis);
+
     return parsedAnalysis;
   }
 

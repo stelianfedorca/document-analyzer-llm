@@ -4,9 +4,9 @@ import { UploadView } from "@/features/analyze/components/UploadView";
 
 export default function UploadPage() {
   return (
-    <UploadView />
-    // <div className={styles.page}>
-    //   <AnalyzerClient />
-    // </div>
+    // <UploadView />
+    <div className={styles.page}>
+      <AnalyzerClient />
+    </div>
   );
 }

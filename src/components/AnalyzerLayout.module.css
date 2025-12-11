@@ -11,8 +11,19 @@
 @media (min-width: 768px) {
   .layout {
     display: grid;
-    grid-template-columns: minmax(300px, 400px) 1fr;
+    grid-template-columns: 200px 1fr;
     grid-template-rows: revert;
-    gap: 24px;
+    gap: 2rem;
+    /* max-width: 1000px; */
+  }
+}
+
+@media (min-width: 1100px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: revert;
+    gap: 2rem;
+    /* max-width: 1000px; */
   }
 }
