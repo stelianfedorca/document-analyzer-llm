@@ -9,11 +9,14 @@ import { useRouter } from "next/navigation";
 import { DropZone } from "../DropZone";
 import { RecentAnalysisList } from "@/features/history/components/RecentAnalysisList";
 import { Button } from "@/components/ui/Button";
+import { useAuthContext } from "@/features/auth/components/AuthProvider";
 
 export function UploadView() {
   const [file, setFile] = useState<File | null>(null);
   const isCtaDisabled = file === null;
   const router = useRouter();
+
+  const { user } = useAuthContext();
 
   const handleRemoveFile = () => {
     setFile(null);

@@ -3,7 +3,7 @@ import mockAnalysisResponse from "@/mocks/analysis-response.json";
 
 const MOCK_ANALYSIS_RESPONSE = mockAnalysisResponse as AnalysisReportResponse;
 
-const GEMINI_MODEL = "gemini-2.5-flash";
+const GEMINI_MODEL = process.env.GEMINI_MODEL;
 
 // Ensure the API key is present
 if (!process.env.GEMINI_API_KEY) {
@@ -21,6 +21,52 @@ export type AnalysisReportResponse = {
   mainPoints: string[];
   overallSummary: string[];
 };
+
+// purely input -> output, no HTTP logic here
+export async function analyzeDocument(fileData: string, mimeType: string) {
+  if (process.env.GEMINI_MODE === "mock") {
+    return MOCK_ANALYSIS_RESPONSE;
+  }
+
+  const userParts: Part[] = [
+    {
+      text: "Analyze the following document and fill the JSON fields according to your system instructions.",
+    },
+  ];
+
+  if (mimeType === "application/pdf") {
+    userParts.push({
+      inlineData: {
+        mimeType: mimeType,
+        data: fileData,
+      },
+    });
+  } else {
+    userParts.push({
+      text: fileData,
+    });
+  }
+
+  const response = await gemini.models.generateContent({
+    model: GEMINI_MODEL,
+    contents: [
+      {
+        role: "user",
+        parts: userParts,
+      },
+    ],
+    config: {
+      temperature: 0.2,
+      responseMimeType: "application/json",
+      responseSchema: ANALYSIS_REPORT_SCHEMA,
+      systemInstruction: {
+        parts: [{ text: SYSTEM_PROMPT }],
+      },
+    },
+  });
+
+  return response.text;
+}
 
 export const SYSTEM_PROMPT = `
 You are an assistant that summarizes arbitrary documents for a busy professional.
@@ -96,49 +142,3 @@ export const ANALYSIS_REPORT_SCHEMA = {
   },
   required: ["title", "mainPoints", "overallSummary", "documentType"],
 } as const;
-
-// purely input -> output, no HTTP logic here
-export async function analyzeDocument(fileData: string, mimeType: string) {
-  if (process.env.GEMINI_MODE === "mock") {
-    return MOCK_ANALYSIS_RESPONSE;
-  }
-
-  const userParts: Part[] = [
-    {
-      text: "Analyze the following document and fill the JSON fields according to your system instructions.",
-    },
-  ];
-
-  if (mimeType === "application/pdf") {
-    userParts.push({
-      inlineData: {
-        mimeType: mimeType,
-        data: fileData,
-      },
-    });
-  } else {
-    userParts.push({
-      text: fileData,
-    });
-  }
-
-  const response = await gemini.models.generateContent({
-    model: GEMINI_MODEL,
-    contents: [
-      {
-        role: "user",
-        parts: userParts,
-      },
-    ],
-    config: {
-      temperature: 0.2,
-      responseMimeType: "application/json",
-      responseSchema: ANALYSIS_REPORT_SCHEMA,
-      systemInstruction: {
-        parts: [{ text: SYSTEM_PROMPT }],
-      },
-    },
-  });
-
-  return response.text;
-}
