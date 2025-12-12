@@ -1,4 +1,4 @@
-import { FiActivity, FiAlertCircle, FiCheckCircle } from "react-icons/fi";
+import { FiActivity, FiAlertCircle } from "react-icons/fi";
 import styles from "./ResultPanel.module.css";
 import clsx from "clsx";
 import { LoadingState } from "../ui/LoadingState";

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import styles from "./Header.module.css";
-import { MaxWidthWrapper } from "../MaxWidthWrapper";
 
 // import { UserButton } from "@/features/auth/components/UserButton"; // Example
 
