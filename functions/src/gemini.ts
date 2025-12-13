@@ -1,7 +1,7 @@
 import { GoogleGenAI, Part } from "@google/genai";
 import mockAnalysisResponse from "./mocks/analysis-response-1.json";
 import { z } from "zod";
-import { AnalysisReportResponse, AnalysisReportSchema } from "@shared/analysis";
+import { AnalysisReportResponse, AnalysisReportSchema } from "./types/analysis";
 
 const MOCK_ANALYSIS_RESPONSE = mockAnalysisResponse as AnalysisReportResponse;
 
