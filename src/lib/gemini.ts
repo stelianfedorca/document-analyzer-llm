@@ -23,7 +23,7 @@ export type AnalysisReportResponse = {
 };
 
 // purely input -> output, no HTTP logic here
-export async function analyzeDocument(fileData: string, mimeType: string) {
+export async function runGeminiAnalysis(fileData: string, mimeType: string) {
   if (process.env.GEMINI_MODE === "mock") {
     return MOCK_ANALYSIS_RESPONSE;
   }

@@ -1,5 +1,5 @@
 import { processFileForGemini } from "@/lib/file-utils";
-import { analyzeDocument } from "@/lib/gemini";
+import { runGeminiAnalysis } from "@/lib/gemini";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     const processedFile = await processFileForGemini(file);
 
     // business logic
-    const analysis = await analyzeDocument(
+    const analysis = await runGeminiAnalysis(
       processedFile.data,
       processedFile.mimeType
     );

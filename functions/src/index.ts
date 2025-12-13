@@ -7,6 +7,16 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
+import * as admin from "firebase-admin";
+import * as functions from "firebase-functions";
+
+if (!admin.apps.length) {
+  admin.initializeApp(); // no args here – uses default service account
+}
+
+const db = admin.firestore();
+const bucket = admin.storage().bucket();
+
 import { setGlobalOptions } from "firebase-functions";
 import { onRequest } from "firebase-functions/https";
 import * as logger from "firebase-functions/logger";
