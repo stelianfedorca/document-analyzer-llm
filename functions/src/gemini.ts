@@ -1,5 +1,5 @@
 import { GoogleGenAI, Part } from "@google/genai";
-import mockAnalysisResponse from "@/mocks/analysis-response-1.json";
+import mockAnalysisResponse from "./mocks/analysis-response-1.json";
 import { z } from "zod";
 
 const AnalysisReportSchema = z.object({
@@ -55,7 +55,7 @@ export async function runGeminiAnalysis(
   }
 
   const response = await gemini.models.generateContent({
-    model: GEMINI_MODEL,
+    model: GEMINI_MODEL ?? "gemini-2.5-flash",
     contents: [
       {
         role: "user",
