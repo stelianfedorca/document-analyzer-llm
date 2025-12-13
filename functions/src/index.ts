@@ -8,18 +8,12 @@
  */
 
 import * as admin from "firebase-admin";
-import * as functions from "firebase-functions";
 
 if (!admin.apps.length) {
   admin.initializeApp(); // no args here – uses default service account
 }
 
-const db = admin.firestore();
-const bucket = admin.storage().bucket();
-
 import { setGlobalOptions } from "firebase-functions";
-import { onRequest } from "firebase-functions/https";
-import * as logger from "firebase-functions/logger";
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -36,7 +30,4 @@ import * as logger from "firebase-functions/logger";
 // this will be the maximum concurrent request count.
 setGlobalOptions({ region: "europe-west1", maxInstances: 10 });
 
-export const helloWorld = onRequest((request, response) => {
-  logger.info("Hello logs!", { structuredData: true });
-  response.send("Hello from Firebase!");
-});
+export * from "./analyzeDocument";

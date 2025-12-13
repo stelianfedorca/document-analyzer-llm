@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase-admin/firestore";
+
 export type AnalysisStatus = "processing" | "completed" | "failed";
 
 export interface AnalysisData {
@@ -15,6 +17,6 @@ export interface DocumentAnalysis {
   analysis?: AnalysisData;
 
   errorMessage?: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
 }

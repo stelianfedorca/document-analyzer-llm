@@ -15,6 +15,7 @@ export function UploadView() {
   const [file, setFile] = useState<File | null>(null);
   const isCtaDisabled = file === null;
   const router = useRouter();
+  const { mutateAsync } = useAnalyzeDocument();
 
   const { user } = useAuthContext();
 
@@ -23,9 +24,9 @@ export function UploadView() {
   };
 
   const handleAnalyzeDocument = async () => {
-    // if (!file || isPending) return;
+    if (!file) return;
 
-    // await mutateAsync(file);
+    await mutateAsync(file);
 
     router.push("/analyze/report/123");
   };
