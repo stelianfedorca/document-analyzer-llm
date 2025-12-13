@@ -4,8 +4,6 @@ import { useState } from "react";
 import AnalyzerLayout from "./AnalyzerLayout";
 import { ResultPanel } from "./ResultPanel/ResultPanel";
 import { UploadPanel } from "./UploadPanel/UploadPanel";
-import { useMutation } from "@tanstack/react-query";
-import { AnalysisReportResponse } from "@/features/analyze/types";
 import { useAnalyzeDocument } from "@/features/analyze/hooks/useAnalyzeDocument";
 
 export function AnalyzerClient() {

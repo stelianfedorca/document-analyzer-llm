@@ -5,9 +5,5 @@ export default function AnalyzerLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="maxWidthWrapper">
-      <div className={styles.layout}>{children}</div>
-    </div>
-  );
+  return <div className={styles.layout}>{children}</div>;
 }

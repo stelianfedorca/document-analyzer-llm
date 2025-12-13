@@ -1,7 +1,7 @@
 import { FiActivity, FiAlertCircle, FiCheckCircle } from "react-icons/fi";
 import styles from "./ResultPanel.module.css";
 import clsx from "clsx";
-import { AnalysisReportResponse } from "../../types";
+import { AnalysisReportResponse } from "@/types/analysis";
 
 interface Props {
   data?: AnalysisReportResponse;
@@ -38,7 +38,9 @@ export function ResultView({ data, error }: Props) {
         <div>
           <header className={styles.header}>
             <h2 className={styles.title}>{data.title || "Summary"}</h2>
-            <span>{formatDocType(data.documentType)}</span>
+            <span className={styles.docType}>
+              {formatDocType(data.documentType)}
+            </span>
           </header>
         </div>
         <div className={styles.contentSection}>

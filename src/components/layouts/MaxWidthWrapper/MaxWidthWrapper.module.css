@@ -9,7 +9,7 @@
   padding: 0 16px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 550px) {
   .container {
     padding: 0 32px;
   }

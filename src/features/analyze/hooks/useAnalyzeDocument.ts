@@ -1,10 +1,11 @@
 "use client";
 
+import { AnalysisReportResponse } from "@/types/analysis";
 import { useMutation } from "@tanstack/react-query";
-import { AnalysisReportResponse } from "../types";
 
 export function useAnalyzeDocument() {
   async function analyzeDocument(file: File) {
+    const start = performance.now();
     const formData = new FormData();
     formData.append("file", file);
 
@@ -19,11 +20,19 @@ export function useAnalyzeDocument() {
     }
 
     // TODO: To make sure api returns unique id for each analysis report
-    const { analysis } = await response.json();
+    const { analysis } = (await response.json()) as {
+      analysis: AnalysisReportResponse;
+    };
 
-    const parsedAnalysis = JSON.parse(analysis) as AnalysisReportResponse;
+    const end = performance.now();
+    const ms = end - start;
+    const seconds = (ms / 1000).toFixed(1);
 
-    return parsedAnalysis;
+    console.log(`analysis ready in: ${seconds}s`);
+
+    console.log("analysis in custom hook: ", analysis);
+
+    return analysis;
   }
 
   return useMutation({
