@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, forwardRef } from "react";
 import styles from "./Button.module.css";
 import clsx from "clsx";
+import { ImSpinner2 } from "react-icons/im";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "ghost";
@@ -40,9 +41,13 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
         ref={ref}
         disabled={disabled || isLoading}
         className={buttonStyles}
+        aria-busy={isLoading}
         {...props}
       >
-        {isLoading ? <span className={styles.spinner} /> : children}
+        <span className={styles.label}>{children}</span>
+        {isLoading && (
+          <ImSpinner2 className={styles.spinner} aria-hidden="true" />
+        )}
       </button>
     );
   }

@@ -15,7 +15,7 @@ export function UploadView() {
   const [file, setFile] = useState<File | null>(null);
   const isCtaDisabled = file === null;
   const router = useRouter();
-  const { mutateAsync } = useAnalyzeDocument();
+  const { mutateAsync, isPending } = useAnalyzeDocument();
 
   const { user } = useAuthContext();
 
@@ -24,11 +24,15 @@ export function UploadView() {
   };
 
   const handleAnalyzeDocument = async () => {
-    if (!file) return;
+    if (!file || isPending) return;
 
-    await mutateAsync(file);
-
-    router.push("/analyze/report/123");
+    try {
+      const docId = await mutateAsync(file);
+      router.push(`/analyze/report/${docId}`);
+    } catch (err) {
+      console.error("Failed to analyze document:", err);
+      // Optional: Add toast notification here
+    }
   };
 
   return (
@@ -66,6 +70,7 @@ export function UploadView() {
             onClick={handleAnalyzeDocument}
             className={styles.analyzeButton}
             disabled={isCtaDisabled}
+            isLoading={isPending}
           >
             Analyze Document
           </Button>
