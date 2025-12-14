@@ -11,7 +11,7 @@ export function useAnalyzeDocument() {
     if (isLoading) throw new Error("Still determining auth state");
     if (!user) throw new Error("You must be signed in to analyze a document");
 
-    const idToken = await user.getIdToken(true);
+    const idToken = await user.getIdToken();
 
     const start = performance.now();
     const formData = new FormData();
