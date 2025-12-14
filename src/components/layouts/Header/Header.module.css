@@ -59,3 +59,9 @@
   border-radius: 50%;
   background-color: #134876;
 }
+
+@media (min-width: 550px) {
+  .inner {
+    padding: 0 32px;
+  }
+}

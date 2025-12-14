@@ -9,15 +9,14 @@ import { useRouter } from "next/navigation";
 import { DropZone } from "../DropZone";
 import { RecentAnalysisList } from "@/features/history/components/RecentAnalysisList";
 import { Button } from "@/components/ui/Button";
-import { useAuthContext } from "@/features/auth/components/AuthProvider";
+import { useToast } from "@/components/ui/ToastProvider/ToastProvider";
 
 export function UploadView() {
   const [file, setFile] = useState<File | null>(null);
   const isCtaDisabled = file === null;
   const router = useRouter();
   const { mutateAsync, isPending } = useAnalyzeDocument();
-
-  const { user } = useAuthContext();
+  const { showToast } = useToast();
 
   const handleRemoveFile = () => {
     setFile(null);
@@ -25,13 +24,19 @@ export function UploadView() {
 
   const handleAnalyzeDocument = async () => {
     if (!file || isPending) return;
-
     try {
       const docId = await mutateAsync(file);
       router.push(`/analyze/report/${docId}`);
-    } catch (err) {
-      console.error("Failed to analyze document:", err);
-      // Optional: Add toast notification here
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Please try again later";
+      console.error("Failed to analyze document:", errorMessage);
+
+      showToast({
+        title: "Analysis failed",
+        description: errorMessage,
+        variant: "error",
+      });
     }
   };
 

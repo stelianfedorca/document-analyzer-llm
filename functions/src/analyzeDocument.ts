@@ -1,6 +1,6 @@
 import { onDocumentWritten } from "firebase-functions/v2/firestore";
 import * as logger from "firebase-functions/logger";
-import type { DocumentAnalysis } from "./types/firestore";
+import type { DocumentRecord } from "./types/firestore";
 import { db, storage } from "./firebase";
 import { runGeminiAnalysis } from "./gemini";
 import { FieldValue } from "firebase-admin/firestore";
@@ -19,12 +19,12 @@ export const analyzeDocument = onDocumentWritten(
     // -------------------------------------------------------------------
     // State BEFORE the write
     const dataBeforeChange = event.data?.before.data() as
-      | DocumentAnalysis
+      | DocumentRecord
       | undefined;
 
     // State AFTER the write
     const dataAfterChange = event.data?.after.data() as
-      | DocumentAnalysis
+      | DocumentRecord
       | undefined;
     // -------------------------------------------------------------------
     // 2. Deletion Guard

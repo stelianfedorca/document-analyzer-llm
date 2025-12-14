@@ -36,5 +36,7 @@ export const firebaseApp: FirebaseApp =
 
 // 4. Export Auth instance
 export const auth = getAuth(firebaseApp);
+import { getFirestore } from "firebase/firestore";
+export const db = getFirestore(firebaseApp);
 
 export { firebaseConfig };

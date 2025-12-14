@@ -9,7 +9,7 @@ export interface AnalysisData {
   overallSummary: string[];
 }
 
-export interface DocumentAnalysis {
+export interface DocumentRecord {
   fileName: string;
   storagePath: string;
   status: AnalysisStatus;

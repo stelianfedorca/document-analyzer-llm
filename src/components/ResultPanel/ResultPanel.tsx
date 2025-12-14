@@ -1,7 +1,7 @@
 import { FiActivity, FiAlertCircle } from "react-icons/fi";
 import styles from "./ResultPanel.module.css";
 import clsx from "clsx";
-import { LoadingState } from "../ui/LoadingState";
+import { LoadingState } from "@/components/ui/LoadingState";
 import { AnalysisReportResponse } from "@/types/analysis";
 
 interface Props {
@@ -17,6 +17,7 @@ function formatDocType(docType?: string) {
 }
 
 export function ResultPanel({ data, isLoading, error }: Props) {
+  console.log("data: ", data);
   if (isLoading) {
     return (
       <LoadingState />

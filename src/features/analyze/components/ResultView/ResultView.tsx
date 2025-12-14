@@ -8,9 +8,12 @@ interface Props {
   error: Error | null;
 }
 
+// "contract" -> "Contract"
+// convert the first character to uppercase and append the rest of string
 function formatDocType(docType?: string) {
   if (!docType) return "Unknown";
 
+  // C + ontract
   return docType.charAt(0).toUpperCase() + docType.slice(1);
 }
 

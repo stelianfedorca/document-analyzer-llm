@@ -9,7 +9,7 @@ export interface AnalysisData {
   overallSummary: string[];
 }
 
-interface DocumentAnalysisBase {
+interface DocumentRecordBase {
   fileName: string;
   storagePath: string;
   status: "processing" | "completed" | "failed";
@@ -18,13 +18,13 @@ interface DocumentAnalysisBase {
 }
 
 // Database Type (What you get from Firestore and send to Firebase)
-export interface DocumentAnalysisFirestore extends DocumentAnalysisBase {
+export interface DocumentRecordFirestore extends DocumentRecordBase {
   createdAt: Timestamp;
   updatedAt: Timestamp;
 }
 
 // UI / Response shape for a analysis record from firestore
-export interface DocumentAnalysis extends DocumentAnalysisBase {
+export interface DocumentRecord extends DocumentRecordBase {
   id: string;
   createdAt: string; // ISO String
   updatedAt: string; // ISO String
