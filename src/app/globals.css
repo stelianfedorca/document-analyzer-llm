@@ -1,11 +1,12 @@
 :root {
   --background: #fafafa;
-
   --primary: #2563eb;
 
   --text-heading: hsl(222, 47%, 11%); /* (Deep Slate / Almost Black) */
   --text-body: hsl(217, 33%, 17%); /* (Dark Gray) */
   --text-muted: hsl(215, 16%, 47%); /* (Medium Gray) */
+  --text-emphasis: hsl(217, 24%, 28%); /* Between text-heading and text-body */
+
   --card-bg: #fff;
   --header-bg: #fff;
 

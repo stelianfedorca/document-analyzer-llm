@@ -126,7 +126,7 @@ export function AnalysisStatusCard({
           <AnimatePresence mode="wait" initial={false}>
             <motion.span
               key={step}
-              className={styles.spinnerText}
+              className={styles.step}
               variants={variants}
               initial="initial"
               animate="animate"

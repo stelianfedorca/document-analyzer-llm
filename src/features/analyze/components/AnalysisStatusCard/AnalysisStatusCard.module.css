@@ -124,9 +124,9 @@
   opacity: 0.95;
 }
 
-.spinnerText {
+.step {
   font-weight: 500;
-  color: var(--foreground);
+  color: var(--text-emphasis);
 }
 
 @keyframes scanLine {
