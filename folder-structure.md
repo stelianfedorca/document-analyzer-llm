@@ -14,7 +14,7 @@ src/
 │ │ │ │
 │ │ │ ├── report/
 │ │ │ │ └── [id]/
-│ │ │ │ └── page.tsx # → <ReportView />
+│ │ │ │ └── page.tsx # → <ReportView /> | <LoadingState> | <ErrorView(Retry)>
 │ │ │ │
 │ │ │ └── history/
 │ │ │ └── page.tsx # → <HistoryView />

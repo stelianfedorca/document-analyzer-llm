@@ -12,7 +12,7 @@ import {
 import styles from "./ReportView.module.css";
 import { DocumentRecord } from "@/types/firestore";
 
-type ReportViewProps = {
+type Props = {
   document?: DocumentRecord;
   onDownload?: () => void;
   onCopySummary?: () => void;
@@ -38,11 +38,11 @@ const statusLabelMap: Record<Status, string> = {
 
 export function ReportView({
   document,
-  onDownload = noop,
-  onCopySummary = noop,
-  onSaveToHistory = noop,
-  onNewAnalysis = noop,
-}: ReportViewProps) {
+  onDownload,
+  onCopySummary,
+  onSaveToHistory,
+  onNewAnalysis,
+}: Props) {
   const analysis = document?.analysis;
   const hasAnalysis = Boolean(analysis);
 

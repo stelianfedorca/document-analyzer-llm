@@ -1,6 +1,6 @@
 .header {
   height: var(--header-height);
-  background-color: #ffff;
+  background-color: var(--header-bg);
   border-bottom: 1px solid #e2e8f0;
 
   position: fixed;

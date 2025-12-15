@@ -1,0 +1,294 @@
+.container {
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; */
+
+  min-height: 60vh;
+  width: 100%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 0.75rem;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.5;
+}
+
+/* --- Processing State --- */
+
+.progressTrack {
+  width: 100%;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: #3b82f6; /* Blue-500 */
+  border-radius: 9999px;
+  transition: width 0.5s ease-out;
+}
+
+.spinnerWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.scanner {
+  position: relative;
+  width: 92px;
+  height: 92px;
+  display: grid;
+  place-items: center;
+}
+
+.document {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  border: 1px solid var(--border, #e2e8f0);
+  background: var(--surface-card, #fff);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.document::before {
+  content: "";
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  height: 14px;
+  top: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(37, 99, 235, 0),
+    rgba(37, 99, 235, 0.35),
+    rgba(37, 99, 235, 0)
+  );
+  box-shadow: 0 0 16px rgba(37, 99, 235, 0.35);
+  transform: translateY(-24px);
+  opacity: 0;
+  animation: scanLine 1.9s ease-in-out infinite;
+}
+
+.document::after {
+  content: "";
+  position: absolute;
+  inset: -40% -60%;
+  background: linear-gradient(
+    120deg,
+    transparent 38%,
+    rgba(37, 99, 235, 0.1) 50%,
+    transparent 62%
+  );
+  transform: translateX(-30%);
+  opacity: 0.9;
+  animation: docShimmer 2.4s ease-in-out infinite;
+}
+
+.documentIcon {
+  position: relative;
+  z-index: 1;
+  font-size: 2.25rem;
+  color: var(--primary);
+  opacity: 0.95;
+}
+
+.spinnerText {
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+@keyframes scanLine {
+  0% {
+    transform: translateY(-24px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  55% {
+    transform: translateY(84px);
+    opacity: 1;
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(84px);
+    opacity: 0;
+  }
+}
+
+@keyframes docShimmer {
+  0% {
+    transform: translateX(-35%) rotate(6deg);
+  }
+  50% {
+    transform: translateX(10%) rotate(6deg);
+  }
+  100% {
+    transform: translateX(-35%) rotate(6deg);
+  }
+}
+
+.sparkle {
+  position: absolute;
+  color: rgba(37, 99, 235, 0.9);
+  opacity: 0;
+  animation: sparklePulse 1.35s ease-in-out infinite;
+}
+
+.sparkle1 {
+  top: 6px;
+  left: 10px;
+  font-size: 0.85rem;
+  animation-delay: 0ms;
+}
+
+.sparkle2 {
+  top: 18px;
+  right: 10px;
+  font-size: 0.7rem;
+  animation-delay: 280ms;
+}
+
+.sparkle3 {
+  bottom: 10px;
+  right: 18px;
+  font-size: 0.9rem;
+  animation-delay: 640ms;
+}
+
+@keyframes sparklePulse {
+  0%,
+  100% {
+    transform: translateY(1px) scale(0.75) rotate(-8deg);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.85;
+  }
+  60% {
+    transform: translateY(-1px) scale(1) rotate(8deg);
+    opacity: 0.85;
+  }
+}
+
+.tipBox {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: left;
+}
+
+.tipIcon {
+  font-size: 1.25rem;
+}
+
+.tipText {
+  font-size: 0.875rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* --- Error State --- */
+
+.errorIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #fee2e2; /* Red-100 */
+  color: #ef4444; /* Red-500 */
+  margin: 0 auto 1.5rem auto;
+  font-size: 2rem;
+}
+
+.retryButton {
+  background-color: #2563eb; /* Blue-600 */
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 1rem;
+}
+
+.retryButton:hover {
+  background-color: #1d4ed8; /* Blue-700 */
+}
+
+/* Shared Buttons */
+.cancelButton {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--foreground);
+  background: transparent;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  color: var(--foreground);
+  transition: all 0.2s;
+  cursor: pointer;
+  margin-bottom: 2rem; /* Keep spacing consistent */
+  font-size: 1rem;
+}
+
+.cancelButton:hover {
+  background-color: #f3f4f6;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .document::before,
+  .document::after,
+  .sparkle {
+    animation: none;
+  }
+
+  .sparkle {
+    opacity: 0.5;
+  }
+}

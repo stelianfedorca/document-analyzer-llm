@@ -5,6 +5,7 @@ import { ResultPanel } from "@/components/ResultPanel/ResultPanel";
 import { useParams } from "next/navigation";
 import { ReportView } from "@/features/analyze/components/ReportView";
 import { AnalyzerClient } from "@/components/AnalyzerClient";
+import { AnalysisStatusCard } from "@/features/analyze/components/AnalysisStatusCard/AnalysisStatusCard";
 
 export default function ReportPage() {
   const params = useParams();
@@ -24,15 +25,19 @@ export default function ReportPage() {
     ? new Error(data?.errorMessage || "Unknown analysis error")
     : null;
 
-  return (
-    <div className="container mx-auto py-8">
-      {/* <AnalyzerClient /> */}
-      <ReportView document={data} />
-      {/* <ResultPanel
-        data={data?.analysis}
-        isLoading={isProcessing}
-        error={displayError}
-      /> */}
-    </div>
-  );
+  if (true) {
+    return <AnalysisStatusCard mode="processing" />;
+  }
+
+  if (displayError) {
+    return (
+      <AnalysisStatusCard
+        mode="error"
+        errorMessage={displayError.message}
+        onRetry={() => window.location.reload()}
+      />
+    );
+  }
+
+  return <ReportView document={data} />;
 }
