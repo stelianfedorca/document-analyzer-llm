@@ -7,6 +7,10 @@
   --text-muted: hsl(215, 16%, 47%); /* (Medium Gray) */
   --text-emphasis: hsl(217, 24%, 28%); /* Between text-heading and text-body */
 
+  --border: #e2e8f0; /* Default dividers / card borders */
+  --border-strong: #cbd5e1; /* Button outlines / stronger separators */
+  --focus-ring: rgba(37, 99, 235, 0.45); /* Keyboard focus ring */
+
   --card-bg: #fff;
   --header-bg: #fff;
 
