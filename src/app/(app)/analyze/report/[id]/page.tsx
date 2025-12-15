@@ -11,7 +11,10 @@ export default function ReportPage() {
   const params = useParams();
   const docId = params.id as string;
 
-  const { data, isLoading, error } = useDocument(docId);
+  // const { data, isLoading, error } = useDocument(docId);
+  const isLoading = false;
+  const data = { status: "failed", errorMessage: "" };
+  const error = null;
 
   // UI State Logic:
   // Show loading IF the hook is fetching initially OR if the document status is still "processing"
@@ -25,11 +28,11 @@ export default function ReportPage() {
     ? new Error(data?.errorMessage || "Unknown analysis error")
     : null;
 
-  if (true) {
+  if (isLoading) {
     return <AnalysisStatusCard mode="processing" />;
   }
 
-  if (displayError) {
+  if (false) {
     return (
       <AnalysisStatusCard
         mode="error"
