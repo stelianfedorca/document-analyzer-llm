@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, forwardRef } from "react";
+import { ButtonHTMLAttributes, ReactNode, forwardRef } from "react";
 import styles from "./Button.module.css";
 import clsx from "clsx";
 import { ImSpinner2 } from "react-icons/im";
@@ -8,6 +8,8 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "sm" | "md" | "lg";
   isLoading?: boolean;
   fullWidth?: boolean;
+  icon?: ReactNode;
+  iconPosition?: "left" | "right";
 }
 
 export const Button = forwardRef<HTMLButtonElement, Props>(
@@ -18,6 +20,8 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
       size = "md",
       isLoading = false,
       fullWidth = false,
+      icon,
+      iconPosition = "left",
       disabled,
       className,
       ...props
@@ -44,7 +48,15 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
         aria-busy={isLoading}
         {...props}
       >
-        <span className={styles.label}>{children}</span>
+        <span className={styles.content}>
+          {icon && iconPosition === "left" && (
+            <span className={styles.icon}>{icon}</span>
+          )}
+          <span className={styles.label}>{children}</span>
+          {icon && iconPosition === "right" && (
+            <span className={styles.icon}>{icon}</span>
+          )}
+        </span>
         {isLoading && (
           <ImSpinner2 className={styles.spinner} aria-hidden="true" />
         )}

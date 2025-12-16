@@ -1,5 +1,5 @@
-import { FiFileText, FiRefreshCw, FiX } from "react-icons/fi";
-import headerStyles from "../FilePreviewCard/FilePreviewCard.module.css";
+import { FiRefreshCw, FiX } from "react-icons/fi";
+import { FileHeader } from "../FileHeader";
 import styles from "./PreviewCard.module.css";
 
 function formatFileSizeLabel(bytes: number): string {
@@ -18,32 +18,6 @@ function formatFileSizeLabel(bytes: number): string {
   const fractionDigits = value >= 100 ? 0 : 1;
   const formatted = value.toFixed(fractionDigits).replace(/\.0$/, "");
   return `${formatted} ${units[unitIndex]}`;
-}
-
-function FileHeader({
-  file,
-  fileSizeLabel,
-}: {
-  file: File;
-  fileSizeLabel: string;
-}) {
-  return (
-    <div className={styles.header}>
-      <div className={headerStyles.iconWrapper}>
-        <FiFileText
-          aria-hidden="true"
-          className={headerStyles.icon}
-          focusable="false"
-        />
-      </div>
-      <div className={headerStyles.info}>
-        <h3 className={headerStyles.fileName} title={file.name}>
-          {file.name}
-        </h3>
-        <p className={headerStyles.fileSize}>{fileSizeLabel}</p>
-      </div>
-    </div>
-  );
 }
 
 interface Props {

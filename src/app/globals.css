@@ -3,9 +3,12 @@
   --primary: #2563eb;
 
   --text-heading: hsl(222, 47%, 11%); /* (Deep Slate / Almost Black) */
-  --text-body: hsl(217, 33%, 17%); /* (Dark Gray) */
-  --text-muted: hsl(215, 16%, 47%); /* (Medium Gray) */
   --text-emphasis: hsl(217, 24%, 28%); /* Between text-heading and text-body */
+  --text-body: hsl(210, 24%, 16%); /* (Dark Gray) */
+  --text-muted: hsl(215, 16%, 47%); /* (Medium Gray) */
+
+  --secondary: #f2f2f2;
+  --secondary-hover: #e5e7eb;
 
   --border: #e2e8f0; /* Default dividers / card borders */
   --border-strong: #cbd5e1; /* Button outlines / stronger separators */

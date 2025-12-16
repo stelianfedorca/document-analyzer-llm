@@ -1,7 +1,7 @@
 .container {
-  background: #ffffff;
+  background: #fff;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
     0 2px 4px -1px rgba(0, 0, 0, 0.03);
   overflow: hidden;
@@ -11,8 +11,8 @@
 }
 
 .header {
-  background-color: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
+  /* background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0; */
   padding: 1.5rem 2rem;
   display: flex;
   align-items: center;
@@ -21,10 +21,8 @@
 }
 
 .title {
-  color: #0f172a;
   font-size: 1.125rem;
   font-weight: 600;
-  margin: 0;
 }
 
 .contentSection {
@@ -37,18 +35,15 @@
 }
 
 .sectionTitle {
-  color: #64748b;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin: 0 0 1rem 0;
+  /* text-transform: uppercase; */
+  /* letter-spacing: 0.05em; */
+  margin-bottom: 1rem;
 }
 
 .mainPointsList {
   list-style: none;
-  padding: 0;
-  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -56,16 +51,26 @@
 
 .mainPointsList li {
   position: relative;
-  padding-left: 1rem;
-  /* line-height: 1.6; */
+  padding-left: 1.75rem;
+  display: flex;
+  align-items: flex-start;
 }
 
 .mainPointsList li::before {
-  content: "•";
+  content: "";
   position: absolute;
-  left: 0;
-  color: #6366f1; /* Indigo accent */
-  font-weight: bold;
+  inset: 0;
+  top: 5px;
+  width: 1rem;
+  height: 1rem;
+
+  border-radius: 1rem;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' color='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 0.7rem;
 }
 
 .summary {
@@ -137,7 +142,6 @@
 .placeholder .subtitle {
   color: #64748b;
   margin: 0;
-  /* line-height: 1.5; */
   max-width: 300px;
 }
 
@@ -152,12 +156,12 @@
 .docType {
   text-align: center;
 
-  background-color: #e0e7ff;
-  color: #4338ca;
+  background-color: #f3f4f6;
   font-size: 14px;
   font-weight: 600;
   padding: 0.25rem 1rem;
   border-radius: 9999px;
+  border: 1px solid var(--border);
 
   text-transform: capitalize;
 }
@@ -176,6 +180,6 @@
     padding-right: 2rem;
   }
   .contentSectionInner {
-    max-width: 75ch;
+    max-width: 70ch;
   }
 }

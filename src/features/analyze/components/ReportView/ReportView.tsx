@@ -11,16 +11,16 @@ import {
 } from "react-icons/fi";
 import styles from "./ReportView.module.css";
 import { DocumentRecord } from "@/types/firestore";
+import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 
 type Props = {
-  document?: DocumentRecord;
-  onDownload?: () => void;
-  onCopySummary?: () => void;
+  document: DocumentRecord;
+  onDownloadReport?: () => void;
+  onCopyReport?: () => void;
   onSaveToHistory?: () => void;
   onNewAnalysis?: () => void;
 };
-
-const noop = () => {};
 
 type Status = DocumentRecord["status"];
 
@@ -38,8 +38,8 @@ const statusLabelMap: Record<Status, string> = {
 
 export function ReportView({
   document,
-  onDownload,
-  onCopySummary,
+  onDownloadReport,
+  onCopyReport,
   onSaveToHistory,
   onNewAnalysis,
 }: Props) {
@@ -65,73 +65,42 @@ export function ReportView({
     <AnalyzerLayout>
       <aside className={styles.sidebar}>
         <div className={styles.card}>
-          <p className={styles.kicker}>Report overview</p>
-          <h1 className={styles.heading}>
-            {analysis?.title ?? "Analysis in progress"}
-          </h1>
-
-          <div className={styles.fileMeta}>
-            <div className={styles.fileIcon}>
-              <FiFileText aria-hidden />
-            </div>
-            <div>
-              <p className={styles.fileName}>
-                {document?.fileName ?? "Unnamed document"}
-              </p>
-              {formattedDate && <p className={styles.meta}>{formattedDate}</p>}
-            </div>
-          </div>
-
-          <div className={styles.statusRow}>
-            <span className={`${styles.statusBadge} ${statusClassMap[status]}`}>
-              {statusLabelMap[status]}
-            </span>
-            {docTypeLabel && <span className={styles.tag}>{docTypeLabel}</span>}
-          </div>
-
           <div className={styles.actions}>
-            <button
-              type="button"
-              className={styles.primaryAction}
-              onClick={onDownload}
-              disabled={!hasAnalysis}
+            <Button
+              icon={<FiDownload aria-hidden focusable="false" />}
+              onClick={onDownloadReport}
             >
-              <FiDownload aria-hidden />
               Download Report
-            </button>
-            <button
-              type="button"
-              className={styles.primaryAction}
-              onClick={onCopySummary}
+            </Button>
+
+            <Button
+              variant="secondary"
+              icon={<FiCopy aria-hidden focusable="false" />}
+              onClick={onCopyReport}
               disabled={!hasAnalysis}
             >
-              <FiCopy aria-hidden />
-              Copy Summary
-            </button>
-            <button
-              type="button"
-              className={styles.primaryAction}
+              Copy Report
+            </Button>
+
+            <Button
+              variant="ghost"
+              icon={<FiBookmark aria-hidden focusable="false" />}
               onClick={onSaveToHistory}
               disabled={!hasAnalysis}
             >
-              <FiBookmark aria-hidden />
-              Save to history
-            </button>
+              Save to History
+            </Button>
           </div>
 
-          <button
-            type="button"
-            className={styles.linkAction}
-            onClick={onNewAnalysis}
-          >
-            <FiPlus aria-hidden />
+          <Link href="/analyze/upload" className={styles.linkAction}>
+            <FiPlus aria-hidden focusable="false" />
             New Analysis
-          </button>
+          </Link>
         </div>
       </aside>
 
       <div className={styles.mainColumn}>
-        <ResultPanel data={analysis} isLoading={false} error={null} />
+        <ResultPanel data={document} />
       </div>
     </AnalyzerLayout>
   );
