@@ -17,8 +17,12 @@ export default function ReportPage() {
   // const error = null;
 
   // UI State Logic:
-  // Show loading IF the hook is fetching initially OR if the document status is still "processing"
-  const isProcessing = isLoading || data?.status === "processing";
+  // On refresh, the query can be temporarily "idle" (enabled=false while auth/hydration settles),
+  // which yields: isLoading=false, data=undefined, error=null. Treat that as pending.
+  const isPending = isLoading || (data === undefined && !error);
+
+  // Show processing while pending OR while backend status is still "processing"
+  const isProcessing = isPending || data?.status === "processing";
 
   // Error Logic:
   // Show error IF the hook failed OR if the backend reported "failed"
@@ -42,13 +46,17 @@ export default function ReportPage() {
     );
   }
 
-  if (!data) {
+  if (data === null) {
     return (
       <AnalysisStatusCard
         mode="error"
         errorMessage="We couldn't find this document. It may have been deleted or never created."
       />
     );
+  }
+
+  if (data === undefined) {
+    return <AnalysisStatusCard mode="processing" />;
   }
 
   return <ReportView document={data} />;

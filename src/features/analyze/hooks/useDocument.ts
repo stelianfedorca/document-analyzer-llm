@@ -15,7 +15,7 @@ export function useDocument(docId: string) {
   const isQueryEnabled = Boolean(user && docId && !isAuthLoading);
 
   return useQuery({
-    queryKey: ["analysis", docId],
+    queryKey: ["analysis", user?.uid, docId],
     queryFn: async () => {
       if (!user) throw new Error("Not authenticated");
 
@@ -23,7 +23,7 @@ export function useDocument(docId: string) {
       const snapshot = await getDoc(docRef);
 
       if (!snapshot.exists()) {
-        throw new Error("Document not found");
+        return null;
       }
 
       const rawData = snapshot.data() as DocumentRecordFirestore;
@@ -38,6 +38,7 @@ export function useDocument(docId: string) {
 
       return formattedData;
     },
+    staleTime: Infinity,
     enabled: isQueryEnabled,
     // SMART POLLING:
     // If we are "processing", refetch every 1000ms.
@@ -45,6 +46,12 @@ export function useDocument(docId: string) {
     refetchInterval: (query) => {
       const status = query.state.data?.status;
       return status === "processing" ? 1000 : false;
+    },
+    retry: (failureCount, err) => {
+      // Avoid retrying when the user isn't authenticated.
+      if (err instanceof Error && err.message === "Not authenticated")
+        return false;
+      return failureCount < 2;
     },
   });
 }
