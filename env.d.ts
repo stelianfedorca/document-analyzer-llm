@@ -28,5 +28,8 @@ declare namespace NodeJS {
 
     // Node
     NODE_ENV: "development" | "production" | "test";
+
+    // Cloud function
+    ANALYZE_WORKER_URL: string;
   }
 }

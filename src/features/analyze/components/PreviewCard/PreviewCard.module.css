@@ -1,0 +1,143 @@
+.container {
+  width: 100%;
+}
+
+.card {
+  width: 100%;
+  position: relative;
+  padding: 16px 32px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  /* box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08); */
+}
+
+.card:hover {
+}
+
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+.iconWrapper {
+  border-radius: 12px;
+  background: #ecfdf5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.documentIcon {
+  color: #16a34a;
+  font-size: 1rem;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.fileName {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.fileMeta {
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.removeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.removeButton:hover {
+  background: #f9fafb;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+
+.removeButton:active {
+  transform: translateY(1px);
+}
+
+.removeButton:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.45);
+  outline-offset: 2px;
+}
+
+.closeIcon {
+  width: 20px;
+  height: 20px;
+  color: currentColor;
+}
+
+.actionsRow {
+  margin-top: 18px;
+}
+
+.changeButton {
+  background: transparent;
+  padding: 8px 0;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  gap: 12px;
+  color: #0f172a;
+  font-weight: 600;
+  cursor: pointer;
+
+  font-size: 1rem;
+}
+
+.changeButton:hover {
+  background-color: #f3f4f6;
+}
+
+.changeButton:active {
+  transform: translateY(1px);
+}
+
+.changeButton:focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.45);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+.refreshIcon {
+  width: 1em;
+  height: 1em;
+  color: currentColor;
+}
+
+.refreshIconWrapper {
+  display: inline-flex;
+  font-size: 1em;
+  color: currentColor;
+}

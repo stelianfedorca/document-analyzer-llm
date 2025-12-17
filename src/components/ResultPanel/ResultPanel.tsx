@@ -1,13 +1,9 @@
-import { FiActivity, FiAlertCircle } from "react-icons/fi";
 import styles from "./ResultPanel.module.css";
 import clsx from "clsx";
-import { LoadingState } from "../ui/LoadingState";
-import { AnalysisReportResponse } from "@/types/analysis";
+import { DocumentRecord } from "@/types/firestore";
 
 interface Props {
-  data?: AnalysisReportResponse;
-  isLoading: boolean;
-  error: Error | null;
+  data: DocumentRecord;
 }
 
 function formatDocType(docType?: string) {
@@ -16,97 +12,48 @@ function formatDocType(docType?: string) {
   return docType.charAt(0).toUpperCase() + docType.slice(1);
 }
 
-export function ResultPanel({ data, isLoading, error }: Props) {
-  if (isLoading) {
-    return (
-      <LoadingState />
-      // <div className={styles.container}>
-      //   <div className={styles.placeholder}>
-      //     <div className={`${styles.iconWrapper} ${styles.loading}`}>
-      //       <FiActivity className={`${styles.icon} ${styles.spin}`} />
-      //     </div>
-      //     <h3 className={styles.title}>Analyzing document...</h3>
-      //     <p className={styles.subtitle}>
-      //       This may take a few moments. Please wait.
-      //     </p>
-      //   </div>
-      // </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className={styles.container}>
-        <div className={styles.placeholder}>
-          <div className={`${styles.iconWrapper} ${styles.error}`}>
-            <FiAlertCircle className={styles.icon} />
-          </div>
-          <h3 className={styles.title}>Analysis failed</h3>
-          <p className={styles.subtitle}>{error.message}</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (data) {
-    // const paragraphs = data.overallSummary?.split("\n");
-
-    console.log(data.overallSummary);
-    return (
-      <section className={clsx(styles.container)}>
-        <header className={styles.header}>
-          <h2 className={styles.title}>{data.title || "Summary"}</h2>
-          <span className={styles.docType}>
-            {formatDocType(data.documentType)}
-          </span>
-        </header>
-        <div className={styles.contentSection}>
-          <div className={styles.contentSectionInner}>
-            <h2 className={styles.sectionTitle}>Main Points</h2>
-            <ul className={clsx(styles.mainPointsList)}>
-              {data.mainPoints.map((point, index) => {
-                return (
-                  <li key={index}>
-                    {/* {point} */}
-                    <p>{point}</p>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </div>
-
-        <div className={clsx(styles.contentSection)}>
-          <div className={styles.contentSectionInner}>
-            <h2 className={styles.sectionTitle}>Overall summary</h2>
-            <div className={clsx(styles.summary)}>
-              {data.overallSummary.map(
-                (paragraph, idx) =>
-                  paragraph.trim() && (
-                    <p key={idx} className={styles.paragraph}>
-                      {paragraph}
-                    </p>
-                  )
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+export function ResultPanel({ data }: Props) {
+  const { analysis } = data;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.placeholder}>
-        <div className={styles.iconWrapper}>
-          <FiActivity className={styles.icon} />
+    <section className={clsx(styles.container)}>
+      <header className={styles.header}>
+        <h2 className={styles.title}>{data.analysis?.title || "Summary"}</h2>
+        <span className={styles.docType}>
+          {formatDocType(data.analysis?.documentType)}
+        </span>
+      </header>
+      <div className={styles.contentSection}>
+        <div className={styles.contentSectionInner}>
+          <h2 className={styles.sectionTitle}>Main Points</h2>
+          <ul className={clsx(styles.mainPointsList)}>
+            {data.analysis?.mainPoints.map((point, index) => {
+              return (
+                <li key={index}>
+                  <p>{point}</p>
+                </li>
+              );
+            })}
+          </ul>
         </div>
-        <h3 className={styles.title}>Ready to analyze</h3>
-        <p className={styles.subtitle}>
-          Upload a document and click "Analyze" to see the results here.
-        </p>
       </div>
-    </div>
+
+      <div className={clsx(styles.contentSection)}>
+        <div className={styles.contentSectionInner}>
+          <h2 className={styles.sectionTitle}>Overall summary</h2>
+          <div className={clsx(styles.summary)}>
+            {data.analysis?.overallSummary.map(
+              (paragraph, idx) =>
+                paragraph.trim() && (
+                  <p key={idx} className={styles.paragraph}>
+                    {paragraph}
+                  </p>
+                )
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 

@@ -14,7 +14,7 @@ src/
 │ │ │ │
 │ │ │ ├── report/
 │ │ │ │ └── [id]/
-│ │ │ │ └── page.tsx # → <ReportView />
+│ │ │ │ └── page.tsx # → <ReportView /> | <LoadingState> | <ErrorView(Retry)>
 │ │ │ │
 │ │ │ └── history/
 │ │ │ └── page.tsx # → <HistoryView />
@@ -50,9 +50,9 @@ src/
 │ │ │ │ ├── DropZone.tsx
 │ │ │ │ └── DropZone.module.css
 │ │ │ │
-│ │ │ ├── FilePreviewCard/
-│ │ │ │ ├── FilePreviewCard.tsx
-│ │ │ │ └── FilePreviewCard.module.css
+│ │ │ ├── PreviewCard/
+│ │ │ │ ├── PreviewCard.tsx
+│ │ │ │ └── PreviewCard.module.css
 │ │ │ │
 │ │ │ ├── ReportView/
 │ │ │ │ ├── ReportView.tsx

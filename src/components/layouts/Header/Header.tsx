@@ -9,7 +9,7 @@ export function Header() {
       <div className={styles.inner}>
         {/* Left: Brand / Logo */}
         <div className={styles.brand}>
-          <Link href="/" className={styles.logoLink}>
+          <Link href="/analyze/upload" className={styles.logoLink}>
             {/* <LogoIcon className={styles.icon} /> */}
             <span className={styles.logoText}>DocuSense</span>
           </Link>

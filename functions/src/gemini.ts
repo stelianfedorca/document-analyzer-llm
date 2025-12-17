@@ -5,15 +5,19 @@ import { AnalysisReportResponse, AnalysisReportSchema } from "./types/analysis";
 
 const MOCK_ANALYSIS_RESPONSE = mockAnalysisResponse as AnalysisReportResponse;
 
-const GEMINI_MODEL = process.env.GEMINI_MODEL;
+// Lazy Singleton Pattern
+let geminiClient: GoogleGenAI | null = null;
 
-// Ensure the API key is present
-if (!process.env.GEMINI_API_KEY) {
-  throw new Error("Missing GEMINI_API_KEY environment variable");
+function getGemini() {
+  if (!geminiClient) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("Missing GEMINI_API_KEY environment variable");
+    }
+    geminiClient = new GoogleGenAI({ apiKey });
+  }
+  return geminiClient;
 }
-
-// The client gets the API key from the environment variable `GEMINI_API_KEY`.
-export const gemini = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 export type { Part };
 
@@ -22,9 +26,14 @@ export async function runGeminiAnalysis(
   fileData: string,
   mimeType: string
 ): Promise<AnalysisReportResponse> {
+  // Init client here (Runtime only)
+  const gemini = getGemini();
+
   if (process.env.GEMINI_MODE === "mock") {
     return MOCK_ANALYSIS_RESPONSE;
   }
+
+  const GEMINI_MODEL = process.env.GEMINI_MODEL;
 
   const userParts: Part[] = [
     {

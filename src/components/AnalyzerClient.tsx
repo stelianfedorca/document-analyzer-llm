@@ -22,7 +22,7 @@ export function AnalyzerClient() {
         onAnalyze={handleAnalyzeDocument}
         isAnalyzing={isPending}
       />
-      <ResultPanel data={data} isLoading={isPending} error={error} />
+      {/* <ResultPanel data={data} isLoading={isPending} error={error} /> */}
     </AnalyzerLayout>
   );
 }

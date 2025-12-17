@@ -5,7 +5,7 @@
 
   display: grid;
   grid-template-rows: minmax(100px, 170px) 1fr;
-  gap: 1rem;
+  gap: 3rem;
 }
 
 @media (min-width: 768px) {
@@ -13,7 +13,6 @@
     display: grid;
     grid-template-columns: 200px 1fr;
     grid-template-rows: revert;
-    gap: 2rem;
     /* max-width: 1000px; */
   }
 }
@@ -23,7 +22,6 @@
     display: grid;
     grid-template-columns: 300px 1fr;
     grid-template-rows: revert;
-    gap: 2rem;
     /* max-width: 1000px; */
   }
 }

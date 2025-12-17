@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiUploadCloud } from "react-icons/fi";
 import styles from "./UploadPanel.module.css";
-import { FilePreviewCard } from "../../features/analyze/components/FilePreviewCard/FilePreviewCard";
+import { PreviewCard } from "@/features/analyze/components/PreviewCard";
 
 interface Props {
   file: File | null;
@@ -124,7 +124,7 @@ export function UploadPanel({
           </motion.div>
         ) : (
           <>
-            <FilePreviewCard
+            <PreviewCard
               key="file-card"
               file={file}
               onRemove={handleRemoveFile}

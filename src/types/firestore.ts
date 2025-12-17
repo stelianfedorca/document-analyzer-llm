@@ -1,3 +1,5 @@
+import type { Timestamp } from "firebase-admin/firestore";
+
 export type AnalysisStatus = "processing" | "completed" | "failed";
 
 export interface AnalysisData {
@@ -7,14 +9,23 @@ export interface AnalysisData {
   overallSummary: string[];
 }
 
-export interface DocumentAnalysis {
+interface DocumentRecordBase {
   fileName: string;
   storagePath: string;
-  status: AnalysisStatus;
-
+  status: "processing" | "completed" | "failed";
   analysis?: AnalysisData;
-
   errorMessage?: string;
-  createdAt: string;
-  updatedAt: string;
+}
+
+// Database Type (What you get from Firestore and send to Firebase)
+export interface DocumentRecordFirestore extends DocumentRecordBase {
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+// UI / Response shape for a analysis record from firestore
+export interface DocumentRecord extends DocumentRecordBase {
+  id: string;
+  createdAt: string; // ISO String
+  updatedAt: string; // ISO String
 }
