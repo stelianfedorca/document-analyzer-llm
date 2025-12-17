@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/Button";
-import layoutStyles from "./AnalysisStatusCard.module.css";
 import styles from "./AnalysisStatusCardError.module.css";
 
 export interface AnalysisStatusCardErrorProps {
@@ -38,17 +37,15 @@ export function AnalysisStatusCardError({
   };
 
   return (
-    <div className={layoutStyles.wrapper}>
-      <div className={`${layoutStyles.card} ${styles.card}`}>
+    <div className={styles.wrapper}>
+      <div className={styles.card}>
         <header className={styles.header}>
           <span className={styles.statusIcon}>
             <IoCloseCircleOutline />
           </span>
-          <h1 className={layoutStyles.title}>Analysis Failed</h1>
+          <h1 className={styles.title}>Analysis Failed</h1>
         </header>
-        <p className={`${layoutStyles.message} ${styles.message}`}>
-          {errorMessage}
-        </p>
+        <p className={styles.message}>{errorMessage}</p>
 
         {showDetailRow && (
           <div className={styles.detailRow}>
@@ -61,11 +58,7 @@ export function AnalysisStatusCardError({
               </span>
             )}
             {onErrorDetail && (
-              <button
-                type="button"
-                className={styles.detailAction}
-                onClick={onErrorDetail}
-              >
+              <button className={styles.detailAction} onClick={onErrorDetail}>
                 {errorDetailActionLabel}
               </button>
             )}
@@ -74,10 +67,10 @@ export function AnalysisStatusCardError({
 
         <div className={styles.actions}>
           <Button
-            variant="ghost"
+            variant="secondary"
             className={styles.actionSecondary}
             onClick={handleCancel}
-            type="button"
+            size="sm"
           >
             Cancel
           </Button>
@@ -85,16 +78,14 @@ export function AnalysisStatusCardError({
             <Button
               className={styles.actionPrimary}
               onClick={onRetry}
-              type="button"
+              size="sm"
             >
               Retry
             </Button>
           )}
         </div>
 
-        {errorFootnote && (
-          <p className={styles.footnote}>{errorFootnote}</p>
-        )}
+        {errorFootnote && <p className={styles.footnote}>{errorFootnote}</p>}
       </div>
     </div>
   );

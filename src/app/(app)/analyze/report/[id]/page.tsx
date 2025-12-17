@@ -26,13 +26,13 @@ export default function ReportPage() {
 
   // Error Logic:
   // Show error IF the hook failed OR if the backend reported "failed"
-  // const displayError: Error | null = error
-  //   ? (error as Error)
-  //   : data?.status === "failed"
-  //   ? new Error(data?.errorMessage || "Unknown analysis error")
-  //   : null;
+  const displayError: Error | null = error
+    ? (error as Error)
+    : data?.status === "failed"
+    ? new Error(data?.errorMessage || "Unknown analysis error")
+    : null;
 
-  const displayError = new Error("hello world");
+  // const displayError = new Error("hello world");
 
   if (isProcessing) {
     return <AnalysisStatusCard variant="processing" />;

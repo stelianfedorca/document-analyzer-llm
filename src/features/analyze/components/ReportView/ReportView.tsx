@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AnalyzerLayout from "@/components/AnalyzerLayout";
 import { ResultPanel } from "@/components/ResultPanel/ResultPanel";
 import {
   FiBookmark,
+  FiCheck,
   FiCopy,
   FiDownload,
   FiFileText,
@@ -14,6 +15,11 @@ import styles from "./ReportView.module.css";
 import { DocumentRecord } from "@/types/firestore";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
+import { useToast } from "@/components/ui/ToastProvider/ToastProvider";
+import {
+  buildReportHtml,
+  buildReportText,
+} from "@/features/analyze/utils/buildReportText";
 
 type Props = {
   document: DocumentRecord;
@@ -47,19 +53,9 @@ export function ReportView({
   const analysis = document?.analysis;
   const hasAnalysis = Boolean(analysis);
   const [isSaved, setIsSaved] = useState(false);
-
-  const formattedDate = document?.createdAt
-    ? new Date(document.createdAt).toLocaleDateString(undefined, {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-      })
-    : undefined;
-
-  const docTypeLabel = analysis?.documentType
-    ? analysis.documentType.charAt(0).toUpperCase() +
-      analysis.documentType.slice(1)
-    : undefined;
+  const [isCopied, setIsCopied] = useState(false);
+  const copyResetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { showToast } = useToast();
 
   const status: Status = document?.status ?? "processing";
 
@@ -67,6 +63,75 @@ export function ReportView({
     // if (!onSaveToHistory) return;
     // await Promise.resolve(onSaveToHistory());
     setIsSaved(true);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (copyResetTimer.current) {
+        clearTimeout(copyResetTimer.current);
+      }
+    };
+  }, []);
+
+  const markCopied = () => {
+    setIsCopied(true);
+    if (copyResetTimer.current) {
+      clearTimeout(copyResetTimer.current);
+    }
+    copyResetTimer.current = setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
+  };
+
+  const handleCopyReport = async () => {
+    if (!analysis) return;
+    if (onCopyReport) {
+      await Promise.resolve(onCopyReport());
+      markCopied();
+      return;
+    }
+
+    try {
+      const reportText = buildReportText({
+        fileName: document.fileName,
+        createdAt: document.createdAt,
+        analysis,
+      });
+      const reportHtml = buildReportHtml({
+        fileName: document.fileName,
+        createdAt: document.createdAt,
+        analysis,
+      });
+
+      if (navigator.clipboard?.write && typeof ClipboardItem !== "undefined") {
+        const item = new ClipboardItem({
+          "text/plain": new Blob([reportText], { type: "text/plain" }),
+          "text/html": new Blob([reportHtml], { type: "text/html" }),
+        });
+        await navigator.clipboard.write([item]);
+      } else if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(reportText);
+      } else {
+        showToast({
+          title: "Copy failed",
+          description: "Clipboard access isn't available in this browser.",
+          variant: "error",
+        });
+        return;
+      }
+      markCopied();
+      showToast({
+        title: "Report copied",
+        description: "You can paste it anywhere.",
+        variant: "success",
+      });
+    } catch (error) {
+      showToast({
+        title: "Copy failed",
+        description: "Clipboard permissions may be blocked.",
+        variant: "error",
+      });
+    }
   };
 
   return (
@@ -83,11 +148,17 @@ export function ReportView({
 
             <Button
               variant="secondary"
-              icon={<FiCopy aria-hidden focusable="false" />}
-              onClick={onCopyReport}
+              icon={
+                isCopied ? (
+                  <FiCheck aria-hidden focusable="false" />
+                ) : (
+                  <FiCopy aria-hidden focusable="false" />
+                )
+              }
+              onClick={handleCopyReport}
               disabled={!hasAnalysis}
             >
-              Copy Report
+              {isCopied ? "Copied" : "Copy Report"}
             </Button>
 
             <Button
