@@ -35,7 +35,7 @@ export function ResultPanel({ data }: Props) {
       >
         <AccordionItem value="main-points" className={styles.accordionItem}>
           <AccordionTrigger className={styles.accordionTrigger}>
-            <h3 className={styles.sectionTitle}>Main Points</h3>
+            <h3 className={styles.sectionTitle}>Key Findings</h3>
           </AccordionTrigger>
           <AccordionContent
             className={styles.accordionContent}
@@ -59,7 +59,7 @@ export function ResultPanel({ data }: Props) {
 
         <AccordionItem value="overall-summary" className={styles.accordionItem}>
           <AccordionTrigger className={styles.accordionTrigger}>
-            <h3 className={styles.sectionTitle}>Overall summary</h3>
+            <h3 className={styles.sectionTitle}>Overview</h3>
           </AccordionTrigger>
           <AccordionContent
             className={styles.accordionContent}

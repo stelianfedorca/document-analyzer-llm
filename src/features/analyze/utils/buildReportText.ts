@@ -2,6 +2,15 @@ import type { DocumentRecord } from "@/types/firestore";
 
 export type Props = Pick<DocumentRecord, "fileName" | "createdAt" | "analysis">;
 
+export type ReportParts = {
+  title: string;
+  docTypeLabel?: string;
+  formattedDate?: string;
+  fileName?: string;
+  mainPoints: string[];
+  summary: string[];
+};
+
 function formatDocType(docType?: string) {
   if (!docType) return undefined;
   return docType.charAt(0).toUpperCase() + docType.slice(1);
@@ -28,7 +37,11 @@ function escapeHtml(value: string) {
     .replace(/'/g, "&#39;");
 }
 
-function getReportParts({ fileName, createdAt, analysis }: Props) {
+export function buildReportParts({
+  fileName,
+  createdAt,
+  analysis,
+}: Props): ReportParts {
   const title = analysis?.title || "Summary";
   const docTypeLabel = formatDocType(analysis?.documentType);
   const formattedDate = formatDate(createdAt);
@@ -52,7 +65,7 @@ function getReportParts({ fileName, createdAt, analysis }: Props) {
 
 export function buildReportText(props: Props) {
   const { title, docTypeLabel, formattedDate, fileName, mainPoints, summary } =
-    getReportParts(props);
+    buildReportParts(props);
 
   const mainPointLines =
     mainPoints.length > 0
@@ -79,7 +92,7 @@ export function buildReportText(props: Props) {
 
 export function buildReportHtml(props: Props) {
   const { title, docTypeLabel, formattedDate, fileName, mainPoints, summary } =
-    getReportParts(props);
+    buildReportParts(props);
 
   const mainPointItems =
     mainPoints.length > 0

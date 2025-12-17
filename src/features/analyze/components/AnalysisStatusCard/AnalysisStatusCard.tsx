@@ -41,8 +41,6 @@ export function AnalysisStatusCard({
   useEffect(() => {
     if (variant === "error") return;
 
-    setStepIndex(0);
-
     const timers: Array<ReturnType<typeof setTimeout>> = [];
 
     PROCESS_STEPS.slice(1).forEach((_, idx) => {

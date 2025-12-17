@@ -28,7 +28,6 @@ export function useAnalyzeDocument() {
       throw new Error(errorData.error || "Analysis failed");
     }
 
-    // TODO: To make sure api returns unique id for each analysis report
     const { docId } = (await response.json()) as {
       docId: string;
     };
@@ -38,8 +37,6 @@ export function useAnalyzeDocument() {
 
   return useMutation({
     mutationFn: analyzeDocument,
-    onSuccess: (data) => {
-      console.log("success...: ", data);
-    },
+    onSuccess: (data) => {},
   });
 }

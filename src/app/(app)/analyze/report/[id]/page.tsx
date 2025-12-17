@@ -1,6 +1,7 @@
 "use client";
 
 import { useDocument } from "@/features/analyze/hooks/useDocument";
+import { useDownloadReport } from "@/features/analyze/hooks/useDownloadReport";
 import { useParams } from "next/navigation";
 import { ReportView } from "@/features/analyze/components/ReportView";
 import { AnalysisStatusCard } from "@/features/analyze/components/AnalysisStatusCard/AnalysisStatusCard";
@@ -10,6 +11,10 @@ export default function ReportPage() {
   const docId = params.id as string;
 
   const { data, isLoading, error } = useDocument(docId);
+  const downloadReport = useDownloadReport({
+    docId,
+    fileName: data?.fileName,
+  });
 
   // mock
   // const isLoading = false;
@@ -61,5 +66,11 @@ export default function ReportPage() {
     return <AnalysisStatusCard variant="processing" />;
   }
 
-  return <ReportView document={data} />;
+  return (
+    <ReportView
+      document={data}
+      onDownloadReport={() => downloadReport.mutate()}
+      isDownloadingReport={downloadReport.isPending}
+    />
+  );
 }

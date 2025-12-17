@@ -24,6 +24,7 @@ import {
 type Props = {
   document: DocumentRecord;
   onDownloadReport?: () => void;
+  isDownloadingReport?: boolean;
   onCopyReport?: () => void;
   onSaveToHistory?: () => void;
   onNewAnalysis?: () => void;
@@ -46,6 +47,7 @@ const statusLabelMap: Record<Status, string> = {
 export function ReportView({
   document,
   onDownloadReport,
+  isDownloadingReport,
   onCopyReport,
   onSaveToHistory,
   onNewAnalysis,
@@ -142,6 +144,8 @@ export function ReportView({
             <Button
               icon={<FiDownload aria-hidden focusable="false" />}
               onClick={onDownloadReport}
+              isLoading={isDownloadingReport}
+              disabled={!hasAnalysis || isDownloadingReport}
             >
               Download Report
             </Button>
