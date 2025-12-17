@@ -129,6 +129,14 @@
 
 .contentSectionInner {
   max-width: 100%;
+
+  /* 
+  NOTE: Vertical Padding is applied to the inner container instead of the animated content 
+  container to prevent lagging during the closing animation. 
+  This allows the outer container to shrink to a true 0px height smoothly
+*/
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .accordion {
@@ -149,7 +157,8 @@
 }
 
 .accordionContent {
-  padding: 1rem 1.5rem 1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .docType {
