@@ -163,6 +163,11 @@
     cursor: pointer;
   }
 
+  .linkAction:focus-visible {
+    outline-offset: 3px;
+    outline-color: var(--focus-ring);
+  }
+
   .linkAction::after {
     position: absolute;
     content: "";

@@ -8,7 +8,6 @@ import {
   FiCheck,
   FiCopy,
   FiDownload,
-  FiFileText,
   FiPlus,
 } from "react-icons/fi";
 import styles from "./ReportView.module.css";

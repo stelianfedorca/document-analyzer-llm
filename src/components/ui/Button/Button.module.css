@@ -21,7 +21,7 @@
   cursor: not-allowed;
 }
 
-.button:focus {
+.button:focus-visible {
   outline-offset: 3px;
   outline-color: var(--focus-ring);
 }
