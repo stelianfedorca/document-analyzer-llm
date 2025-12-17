@@ -2,14 +2,12 @@
 
 import styles from "./AnalysisStatusCard.module.css";
 import { useState, useEffect } from "react";
-import { FiAlertTriangle, FiFileText, FiStar } from "react-icons/fi";
-import { useRouter } from "next/navigation";
+import { FiFileText, FiStar } from "react-icons/fi";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  Variants,
-} from "framer-motion";
+  AnalysisStatusCardError,
+  AnalysisStatusCardErrorProps,
+} from "./AnalysisStatusCardError";
 
 const PROCESS_STEPS = [
   "Uploading document…",
@@ -18,11 +16,8 @@ const PROCESS_STEPS = [
   "Finishing up…",
 ];
 
-interface Props {
-  mode: "processing" | "error";
-  errorMessage?: string;
-  onRetry?: () => void;
-  onCancel?: () => void;
+interface Props extends AnalysisStatusCardErrorProps {
+  variant: "processing" | "error";
   fileName?: string;
 }
 
@@ -33,13 +28,10 @@ const variants = {
 };
 
 export function AnalysisStatusCard({
-  mode,
-  errorMessage = "Something went wrong during analysis.",
-  onRetry,
-  onCancel,
+  variant,
   fileName,
+  ...errorProps
 }: Props) {
-  const router = useRouter();
   const [stepIndex, setStepIndex] = useState(0);
   const shouldReduceMotion = useReducedMotion();
 
@@ -47,7 +39,7 @@ export function AnalysisStatusCard({
     PROCESS_STEPS[stepIndex] ?? PROCESS_STEPS[PROCESS_STEPS.length - 1];
 
   useEffect(() => {
-    if (mode !== "processing") return;
+    if (variant === "error") return;
 
     setStepIndex(0);
 
@@ -62,51 +54,18 @@ export function AnalysisStatusCard({
     });
 
     return () => timers.forEach(clearTimeout);
-  }, [mode]);
+  }, [variant]);
 
-  // Handle Cancel (e.g. go back to dashboard)
-  const handleCancel = () => {
-    if (onCancel) {
-      onCancel();
-      return;
-    }
-
-    router.push("/analyze/upload"); // Redirect to analyze/upload page
-  };
-
-  if (mode === "error") {
-    return (
-      <div className={styles.container}>
-        <div className={styles.card}>
-          <div className={styles.errorIconWrapper}>
-            <FiAlertTriangle />
-          </div>
-          <h1 className={styles.title}>Analysis Failed</h1>
-          <p className={styles.subtitle}>{errorMessage}</p>
-
-          <div
-            style={{ display: "flex", gap: "1rem", justifyContent: "center" }}
-          >
-            <button className={styles.cancelButton} onClick={handleCancel}>
-              Go Back
-            </button>
-            {onRetry && (
-              <button className={styles.retryButton} onClick={onRetry}>
-                Retry Analysis
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    );
+  if (variant === "error") {
+    return <AnalysisStatusCardError {...errorProps} />;
   }
 
-  // Processing Mode
+  // Processing Variant
   return (
-    <div className={styles.container}>
+    <div className={styles.wrapper}>
       <div className={styles.card}>
         <h1 className={styles.title}>Document Analysis in Progress</h1>
-        <p className={styles.subtitle}>
+        <p className={styles.message}>
           {fileName
             ? `Processing ${fileName}`
             : "Processing your document for key insights."}

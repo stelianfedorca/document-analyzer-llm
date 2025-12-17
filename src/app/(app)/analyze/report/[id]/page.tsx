@@ -26,20 +26,22 @@ export default function ReportPage() {
 
   // Error Logic:
   // Show error IF the hook failed OR if the backend reported "failed"
-  const displayError: Error | null = error
-    ? (error as Error)
-    : data?.status === "failed"
-    ? new Error(data?.errorMessage || "Unknown analysis error")
-    : null;
+  // const displayError: Error | null = error
+  //   ? (error as Error)
+  //   : data?.status === "failed"
+  //   ? new Error(data?.errorMessage || "Unknown analysis error")
+  //   : null;
+
+  const displayError = new Error("hello world");
 
   if (isProcessing) {
-    return <AnalysisStatusCard mode="processing" />;
+    return <AnalysisStatusCard variant="processing" />;
   }
 
   if (displayError) {
     return (
       <AnalysisStatusCard
-        mode="error"
+        variant="error"
         errorMessage={displayError.message}
         onRetry={() => window.location.reload()}
       />
@@ -49,14 +51,14 @@ export default function ReportPage() {
   if (data === null) {
     return (
       <AnalysisStatusCard
-        mode="error"
+        variant="error"
         errorMessage="We couldn't find this document. It may have been deleted or never created."
       />
     );
   }
 
   if (data === undefined) {
-    return <AnalysisStatusCard mode="processing" />;
+    return <AnalysisStatusCard variant="processing" />;
   }
 
   return <ReportView document={data} />;

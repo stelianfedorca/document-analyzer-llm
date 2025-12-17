@@ -18,6 +18,8 @@
   --header-bg: #fff;
 
   --header-height: 70px;
+
+  --alternative-primary: #00141e;
 }
 
 /* @media (prefers-color-scheme: dark) {
