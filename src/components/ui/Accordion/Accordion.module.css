@@ -1,0 +1,93 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+}
+
+.header {
+  margin: 0;
+}
+
+.trigger {
+  background-color: transparent;
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  border: none;
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+.triggerText {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: transform 200ms ease;
+  height: fit-content;
+}
+
+.trigger[data-state="open"] .chevron {
+  transform: rotate(180deg);
+}
+
+.chevron svg {
+  width: 20px;
+  height: 20px;
+}
+
+.content {
+  overflow: hidden;
+}
+
+.content[data-state="open"] {
+  animation: slideDown 200ms ease-out;
+}
+
+.content[data-state="closed"] {
+  animation: slideUp 200ms ease-out;
+}
+
+.contentInner {
+  box-sizing: border-box;
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content[data-state="open"],
+  .content[data-state="closed"] {
+    animation: none;
+  }
+}

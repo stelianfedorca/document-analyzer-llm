@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import AnalyzerLayout from "@/components/AnalyzerLayout";
 import { ResultPanel } from "@/components/ResultPanel/ResultPanel";
 import {
@@ -45,6 +46,7 @@ export function ReportView({
 }: Props) {
   const analysis = document?.analysis;
   const hasAnalysis = Boolean(analysis);
+  const [isSaved, setIsSaved] = useState(false);
 
   const formattedDate = document?.createdAt
     ? new Date(document.createdAt).toLocaleDateString(undefined, {
@@ -60,6 +62,12 @@ export function ReportView({
     : undefined;
 
   const status: Status = document?.status ?? "processing";
+
+  const handleSaveToHistory = async () => {
+    // if (!onSaveToHistory) return;
+    // await Promise.resolve(onSaveToHistory());
+    setIsSaved(true);
+  };
 
   return (
     <AnalyzerLayout>
@@ -84,11 +92,22 @@ export function ReportView({
 
             <Button
               variant="ghost"
-              icon={<FiBookmark aria-hidden focusable="false" />}
-              onClick={onSaveToHistory}
+              icon={
+                isSaved ? (
+                  <FiBookmark
+                    aria-hidden
+                    focusable="false"
+                    fill="currentColor"
+                  />
+                ) : (
+                  <FiBookmark aria-hidden focusable="false" />
+                )
+              }
+              onClick={handleSaveToHistory}
               disabled={!hasAnalysis}
+              state={isSaved ? "saved" : undefined}
             >
-              Save to History
+              {isSaved ? "Saved" : "Save to History"}
             </Button>
           </div>
 

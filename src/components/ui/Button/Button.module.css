@@ -71,8 +71,19 @@
   color: var(--primary);
 }
 
-.ghost:active {
+.ghost[data-state="saved"] {
+  background-color: color-mix(in srgb, var(--primary) 8%, #fff);
+  border-color: color-mix(in srgb, var(--primary) 24%, var(--border));
 }
+
+.ghost[data-state="saved"]:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--primary) 12%, #fff);
+}
+
+.ghost[data-state="saved"] .icon {
+  color: var(--primary);
+}
+
 /* Sizes */
 .sm {
   padding: 0.75rem 0.875rem;

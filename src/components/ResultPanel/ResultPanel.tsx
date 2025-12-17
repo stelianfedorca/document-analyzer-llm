@@ -1,6 +1,12 @@
 import styles from "./ResultPanel.module.css";
 import clsx from "clsx";
 import { DocumentRecord } from "@/types/firestore";
+import {
+  AccordionContent,
+  AccordionItem,
+  AccordionRoot,
+  AccordionTrigger,
+} from "@/components/ui/Accordion";
 
 interface Props {
   data: DocumentRecord;
@@ -13,8 +19,6 @@ function formatDocType(docType?: string) {
 }
 
 export function ResultPanel({ data }: Props) {
-  const { analysis } = data;
-
   return (
     <section className={clsx(styles.container)}>
       <header className={styles.header}>
@@ -23,36 +27,52 @@ export function ResultPanel({ data }: Props) {
           {formatDocType(data.analysis?.documentType)}
         </span>
       </header>
-      <div className={styles.contentSection}>
-        <div className={styles.contentSectionInner}>
-          <h2 className={styles.sectionTitle}>Main Points</h2>
-          <ul className={clsx(styles.mainPointsList)}>
-            {data.analysis?.mainPoints.map((point, index) => {
-              return (
-                <li key={index}>
-                  <p>{point}</p>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </div>
+      <AccordionRoot
+        type="multiple"
+        className={styles.accordion}
+        defaultValue={["main-points", "overall-summary"]}
+      >
+        <AccordionItem value="main-points" className={styles.accordionItem}>
+          <AccordionTrigger className={styles.accordionTrigger}>
+            <span className={styles.sectionTitle}>Main Points</span>
+          </AccordionTrigger>
+          <AccordionContent
+            className={styles.accordionContent}
+            innerClassName={styles.contentSectionInner}
+          >
+            <ul className={clsx(styles.mainPointsList)}>
+              {data.analysis?.mainPoints.map((point, index) => {
+                return (
+                  <li key={index}>
+                    <p>{point}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </AccordionContent>
+        </AccordionItem>
 
-      <div className={clsx(styles.contentSection)}>
-        <div className={styles.contentSectionInner}>
-          <h2 className={styles.sectionTitle}>Overall summary</h2>
-          <div className={clsx(styles.summary)}>
-            {data.analysis?.overallSummary.map(
-              (paragraph, idx) =>
-                paragraph.trim() && (
-                  <p key={idx} className={styles.paragraph}>
-                    {paragraph}
-                  </p>
-                )
-            )}
-          </div>
-        </div>
-      </div>
+        <AccordionItem value="overall-summary" className={styles.accordionItem}>
+          <AccordionTrigger className={styles.accordionTrigger}>
+            <span className={styles.sectionTitle}>Overall summary</span>
+          </AccordionTrigger>
+          <AccordionContent
+            className={styles.accordionContent}
+            innerClassName={styles.contentSectionInner}
+          >
+            <div className={clsx(styles.summary)}>
+              {data.analysis?.overallSummary.map(
+                (paragraph, idx) =>
+                  paragraph.trim() && (
+                    <p key={idx} className={styles.paragraph}>
+                      {paragraph}
+                    </p>
+                  )
+              )}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </AccordionRoot>
     </section>
   );
 }

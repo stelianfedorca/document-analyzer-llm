@@ -10,6 +10,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
   icon?: ReactNode;
   iconPosition?: "left" | "right";
+  state?: string;
 }
 
 export const Button = forwardRef<HTMLButtonElement, Props>(
@@ -24,6 +25,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
       iconPosition = "left",
       disabled,
       className,
+      state,
       ...props
     },
     ref
@@ -46,6 +48,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
         disabled={disabled || isLoading}
         className={buttonStyles}
         aria-busy={isLoading}
+        data-state={state}
         {...props}
       >
         <span className={styles.content}>
