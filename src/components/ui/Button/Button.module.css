@@ -55,8 +55,8 @@
 }
 
 .secondary:hover:not(:disabled) {
-  background-color: #f9fafb;
   border: 1px solid var(--border-strong);
+  background-color: color-mix(in srgb, var(--primary) 8%, #fff);
 }
 
 /* ghost */

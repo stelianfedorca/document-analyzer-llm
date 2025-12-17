@@ -11,7 +11,7 @@
 @media (min-width: 768px) {
   .layout {
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 150px 1fr;
     grid-template-rows: revert;
     /* max-width: 1000px; */
   }

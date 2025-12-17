@@ -1,6 +1,7 @@
 import styles from "./ResultPanel.module.css";
 import clsx from "clsx";
 import { DocumentRecord } from "@/types/firestore";
+import { LuCircleCheckBig } from "react-icons/lu";
 import {
   AccordionContent,
   AccordionItem,
@@ -34,7 +35,7 @@ export function ResultPanel({ data }: Props) {
       >
         <AccordionItem value="main-points" className={styles.accordionItem}>
           <AccordionTrigger className={styles.accordionTrigger}>
-            <span className={styles.sectionTitle}>Main Points</span>
+            <h3 className={styles.sectionTitle}>Main Points</h3>
           </AccordionTrigger>
           <AccordionContent
             className={styles.accordionContent}
@@ -43,7 +44,11 @@ export function ResultPanel({ data }: Props) {
             <ul className={clsx(styles.mainPointsList)}>
               {data.analysis?.mainPoints.map((point, index) => {
                 return (
-                  <li key={index}>
+                  <li key={index} className={styles.mainPointItem}>
+                    <LuCircleCheckBig
+                      className={styles.mainPointIcon}
+                      aria-hidden="true"
+                    />
                     <p>{point}</p>
                   </li>
                 );
@@ -54,7 +59,7 @@ export function ResultPanel({ data }: Props) {
 
         <AccordionItem value="overall-summary" className={styles.accordionItem}>
           <AccordionTrigger className={styles.accordionTrigger}>
-            <span className={styles.sectionTitle}>Overall summary</span>
+            <h3 className={styles.sectionTitle}>Overall summary</h3>
           </AccordionTrigger>
           <AccordionContent
             className={styles.accordionContent}
