@@ -10,7 +10,6 @@ import { DropZone } from "../DropZone";
 import { RecentAnalysisList } from "@/features/history/components/RecentAnalysisList";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/ToastProvider/ToastProvider";
-import { FilePreviewCard } from "../FilePreviewCard";
 
 export function UploadView() {
   const [file, setFile] = useState<File | null>(null);
@@ -30,6 +29,8 @@ export function UploadView() {
   const handleAnalyzeDocument = async () => {
     if (!file || isPending) return;
     try {
+      // Store the start time for the analysis to measure perceived UX duration
+      localStorage.setItem(`analysis_start`, Date.now().toString());
       const docId = await mutateAsync(file);
       router.push(`/analyze/report/${docId}`);
     } catch (error) {

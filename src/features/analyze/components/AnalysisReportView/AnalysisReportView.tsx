@@ -11,7 +11,7 @@ import {
   FiPlus,
 } from "react-icons/fi";
 import styles from "./AnalysisReportView.module.css";
-import { DocumentRecord } from "@/types/firestore";
+import { DocumentRecord, AnalysisStatus } from "@/types/firestore";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { useToast } from "@/components/ui/ToastProvider/ToastProvider";
@@ -19,6 +19,8 @@ import {
   buildReportHtml,
   buildReportText,
 } from "@/features/analyze/utils/buildReportText";
+import { useAnalysisDuration } from "@/features/analyze/hooks/useAnalysisDuration";
+import { FiClock } from "react-icons/fi";
 
 type Props = {
   document: DocumentRecord;
@@ -58,7 +60,8 @@ export function AnalysisReportView({
   const copyResetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { showToast } = useToast();
 
-  const status: Status = document?.status ?? "processing";
+  const status: AnalysisStatus = document?.status ?? "processing";
+  const duration = useAnalysisDuration(status);
 
   const handleSaveToHistory = async () => {
     // if (!onSaveToHistory) return;
@@ -184,6 +187,13 @@ export function AnalysisReportView({
               {isSaved ? "Saved" : "Save to History"}
             </Button>
           </div>
+
+          {duration !== null && (
+            <div className={styles.duration} aria-live="polite">
+              <FiClock aria-hidden="true" />
+              <span>Analyzed in {duration.toFixed(1)}s</span>
+            </div>
+          )}
 
           <Link href="/analyze/upload" className={styles.linkAction}>
             <FiPlus aria-hidden focusable="false" />

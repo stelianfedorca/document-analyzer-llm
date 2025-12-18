@@ -46,7 +46,7 @@ export function AnalysisStatusCard({
     PROCESS_STEPS.slice(1).forEach((_, idx) => {
       const timer = setTimeout(() => {
         setStepIndex((current) => Math.min(current + 1, idx + 1));
-      }, (idx + 1) * 2500);
+      }, (idx + 1) * 3000);
 
       timers.push(timer);
     });

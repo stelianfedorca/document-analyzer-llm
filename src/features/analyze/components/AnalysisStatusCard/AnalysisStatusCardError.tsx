@@ -67,19 +67,15 @@ export function AnalysisStatusCardError({
 
         <div className={styles.actions}>
           <Button
-            variant="secondary"
-            className={styles.actionSecondary}
+            variant={onRetry ? "secondary" : "primary"}
+            className={styles.cancelButton}
             onClick={handleCancel}
             size="sm"
           >
-            Cancel
+            Back to Upload
           </Button>
           {onRetry && (
-            <Button
-              className={styles.actionPrimary}
-              onClick={onRetry}
-              size="sm"
-            >
+            <Button className={styles.retryButton} onClick={onRetry} size="sm">
               Retry
             </Button>
           )}

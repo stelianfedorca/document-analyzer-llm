@@ -10,14 +10,15 @@
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 1rem;
-  padding: 3rem 2rem;
+  padding: 2rem;
+  padding-bottom: 1.5rem;
   text-align: center;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
 }
@@ -25,7 +26,7 @@
 .message {
   color: var(--text-muted);
   font-size: 1rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   line-height: 1.5;
 }
 
@@ -234,5 +235,11 @@
 
   .sparkle {
     opacity: 0.5;
+  }
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 1.5rem;
   }
 }
