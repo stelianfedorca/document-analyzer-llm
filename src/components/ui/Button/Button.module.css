@@ -26,6 +26,20 @@
   outline-color: var(--focus-ring);
 }
 
+/* Add a minimum target size */
+.button::after {
+  position: absolute;
+  content: "";
+
+  --click-target-minimum-size: 44px;
+  --inset-by: min(0px, calc((100% - var(--click-target-minimum-size)) / 2));
+
+  top: var(--inset-by); /* 100% is represented by vertical size */
+  bottom: var(--inset-by);
+  left: var(--inset-by);
+  right: var(--inset-by);
+}
+
 /* Variants */
 .primary {
   background-color: var(--primary);

@@ -3,7 +3,7 @@
 import { useDocument } from "@/features/analyze/hooks/useDocument";
 import { useDownloadReport } from "@/features/analyze/hooks/useDownloadReport";
 import { useParams } from "next/navigation";
-import { ReportView } from "@/features/analyze/components/ReportView";
+import { AnalysisReportView } from "@/features/analyze/components/AnalysisReportView";
 import { AnalysisStatusCard } from "@/features/analyze/components/AnalysisStatusCard/AnalysisStatusCard";
 
 export default function ReportPage() {
@@ -67,7 +67,7 @@ export default function ReportPage() {
   }
 
   return (
-    <ReportView
+    <AnalysisReportView
       document={data}
       onDownloadReport={() => downloadReport.mutate()}
       isDownloadingReport={downloadReport.isPending}

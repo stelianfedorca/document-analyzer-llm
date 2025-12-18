@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import AnalyzerLayout from "@/components/AnalyzerLayout";
+import { AnalysisReportLayout } from "../AnalysisReportLayout/AnalysisReportLayout";
 import { ResultPanel } from "@/components/ResultPanel/ResultPanel";
 import {
   FiBookmark,
@@ -10,7 +10,7 @@ import {
   FiDownload,
   FiPlus,
 } from "react-icons/fi";
-import styles from "./ReportView.module.css";
+import styles from "./AnalysisReportView.module.css";
 import { DocumentRecord } from "@/types/firestore";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
@@ -43,7 +43,7 @@ const statusLabelMap: Record<Status, string> = {
   failed: "Failed",
 };
 
-export function ReportView({
+export function AnalysisReportView({
   document,
   onDownloadReport,
   isDownloadingReport,
@@ -136,7 +136,7 @@ export function ReportView({
   };
 
   return (
-    <AnalyzerLayout>
+    <AnalysisReportLayout>
       <aside className={styles.sidebar}>
         <div className={styles.card}>
           <div className={styles.actions}>
@@ -195,6 +195,6 @@ export function ReportView({
       <div className={styles.mainColumn}>
         <ResultPanel data={document} />
       </div>
-    </AnalyzerLayout>
+    </AnalysisReportLayout>
   );
 }

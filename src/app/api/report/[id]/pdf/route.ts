@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth, db } from "@/lib/firebaseAdmin";
-import type { DocumentRecord, DocumentRecordFirestore } from "@/types/firestore";
+import type {
+  DocumentRecord,
+  DocumentRecordFirestore,
+} from "@/types/firestore";
 import { buildReportPdf } from "@/features/analyze/utils/buildReportPdf";
 
 function getSafeFileName(fileName?: string) {
@@ -72,7 +75,9 @@ export async function GET(
 
     const safeName = getSafeFileName(record.fileName);
 
-    return new NextResponse(pdfBytes, {
+    const pdfArray = new Uint8Array(pdfBytes);
+
+    return new NextResponse(pdfArray, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
