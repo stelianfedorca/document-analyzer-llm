@@ -5,11 +5,11 @@
 .card {
   width: 100%;
   position: relative;
-  padding: 16px 32px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  padding: 24px 28px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
   border-radius: 24px;
-  /* box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08); */
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
 }
 
 .card:hover {
@@ -62,14 +62,14 @@
 
 .removeButton {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 40px;
-  height: 40px;
+  top: 20px;
+  right: 20px;
+  width: 42px;
+  height: 42px;
   border-radius: 9999px;
-  border: 1px solid #d1d5db;
-  background: #ffffff;
-  color: #6b7280;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #64748b;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,9 +78,10 @@
 }
 
 .removeButton:hover {
-  background: #f9fafb;
+  background: #ffffff;
   border-color: #cbd5e1;
-  color: #334155;
+  color: #0f172a;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.1);
 }
 
 .removeButton:active {
@@ -99,17 +100,20 @@
 }
 
 .actionsRow {
-  margin-top: 18px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
 }
 
 .changeButton {
-  background: transparent;
-  padding: 8px 0;
+  background: #eff6ff;
+  padding: 8px 16px;
   display: inline-flex;
   align-items: center;
-  border: none;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
   gap: 12px;
-  color: #0f172a;
+  color: #1d4ed8;
   font-weight: 600;
   cursor: pointer;
 
@@ -117,7 +121,7 @@
 }
 
 .changeButton:hover {
-  background-color: #f3f4f6;
+  background-color: #dbeafe;
 }
 
 .changeButton:active {
@@ -140,4 +144,11 @@
   display: inline-flex;
   font-size: 1em;
   color: currentColor;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid #bfdbfe;
+  background: #ffffff;
+  align-items: center;
+  justify-content: center;
 }

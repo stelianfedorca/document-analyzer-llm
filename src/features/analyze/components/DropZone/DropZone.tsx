@@ -49,9 +49,9 @@ export function DropZone({ onFileSelected }: Props) {
         <motion.div
           className={styles.iconWrap}
           animate={{
-            scale: isDragActive ? 1.1 : 1,
-            backgroundColor: isDragActive ? "#e0e7ff" : "hsl(0 0% 100% / 0)",
-            color: isDragActive ? "#4f46e5" : "#94a3b8",
+            scale: isDragActive ? 1.08 : 1,
+            backgroundColor: isDragActive ? "#eef2ff" : "#ffffff",
+            color: isDragActive ? "#4338ca" : "#64748b",
           }}
           transition={{ duration: 0.1 }}
         >

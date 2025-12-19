@@ -48,52 +48,107 @@ export function UploadView() {
 
   return (
     <section className={styles.container}>
-      <h1 className={styles.title}>Start a new analysis</h1>
+      <div className={styles.hero}>
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow}>Document Analyzer</p>
+          <h1 className={styles.title}>Start a new analysis</h1>
+          <p className={styles.subtitle}>
+            Upload a file to generate a structured report you can review
+          </p>
+          <div className={styles.chipRow}>
+            <span className={styles.chip}>PDF</span>
+            <span className={styles.chip}>DOCX</span>
+            <span className={styles.chip}>TXT</span>
+          </div>
+        </div>
+        <div className={styles.heroCard}>
+          <div className={styles.stepItem}>
+            <span className={styles.stepNumber}>01</span>
+            <div>
+              <p className={styles.stepTitle}>Upload</p>
+              <p className={styles.stepText}>Drag & drop or browse files.</p>
+            </div>
+          </div>
+          <div className={styles.stepItem}>
+            <span className={styles.stepNumber}>02</span>
+            <div>
+              <p className={styles.stepTitle}>Analyze</p>
+              <p className={styles.stepText}>We prepare a detailed report.</p>
+            </div>
+          </div>
+          <div className={styles.stepItem}>
+            <span className={styles.stepNumber}>03</span>
+            <div>
+              <p className={styles.stepTitle}>Review</p>
+              <p className={styles.stepText}>
+                Open the report when it is ready.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className={styles.content}>
         <div className={styles.mainContent}>
-          <AnimatePresence mode="wait" initial={false}>
-            {file ? (
-              <motion.div
-                key="file-preview"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                {/* <FilePreviewCard file={file} onRemove={handleRemoveFile} /> */}
-                <PreviewCard
-                  file={file}
-                  onRemove={handleRemoveFile}
-                  onChangeFile={handleChangeFile}
-                />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="drop-zone"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-              >
-                <DropZone onFileSelected={setFile} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div className={styles.uploadCard}>
+            <div className={styles.uploadSurface}>
+              <AnimatePresence mode="wait" initial={false}>
+                {file ? (
+                  <motion.div
+                    key="file-preview"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {/* <FilePreviewCard file={file} onRemove={handleRemoveFile} /> */}
+                    <PreviewCard
+                      file={file}
+                      onRemove={handleRemoveFile}
+                      onChangeFile={handleChangeFile}
+                    />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="drop-zone"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <DropZone onFileSelected={setFile} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
-          <Button
-            variant="primary"
-            size="md"
-            onClick={handleAnalyzeDocument}
-            className={styles.analyzeButton}
-            disabled={isCtaDisabled}
-            isLoading={isPending}
-          >
-            Analyze Document
-          </Button>
+            <div className={styles.ctaRow}>
+              <Button
+                variant="primary"
+                size="md"
+                onClick={handleAnalyzeDocument}
+                className={styles.analyzeButton}
+                disabled={isCtaDisabled}
+                isLoading={isPending}
+              >
+                Analyze Document
+              </Button>
+              <p className={styles.ctaHint}>
+                We will take you to the report view when it is ready.
+              </p>
+            </div>
+          </div>
         </div>
 
         <aside className={styles.sidebar}>
-          <RecentAnalysisList />
+          <div className={styles.sidebarCard}>
+            <div className={styles.sidebarHeader}>
+              <h2 className={styles.sidebarTitle}>Recent analyses</h2>
+              <p className={styles.sidebarSubtitle}>
+                Track your latest reports in one place.
+              </p>
+            </div>
+            <RecentAnalysisList />
+          </div>
         </aside>
       </div>
     </section>

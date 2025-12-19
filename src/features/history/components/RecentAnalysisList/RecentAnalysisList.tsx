@@ -24,9 +24,9 @@ export function RecentAnalysisList() {
           </div>
         </div>
 
-        <h2 className={styles.title}>
+        <h3 className={styles.title}>
           No analyses yet. Your history will appear here.
-        </h2>
+        </h3>
 
         <p className={styles.subtitle}>
           Your recent analyses will show up here after you analyze your first
