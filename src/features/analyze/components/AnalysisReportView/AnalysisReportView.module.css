@@ -103,6 +103,21 @@
   gap: 0.75rem;
 }
 
+.duration {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  width: fit-content;
+  align-self: flex-start;
+  color: #0f172a;
+}
+
+.duration svg {
+}
+
 .primaryAction {
   display: inline-flex;
   align-items: center;
@@ -163,6 +178,11 @@
     cursor: pointer;
   }
 
+  .linkAction:focus-visible {
+    outline-offset: 3px;
+    outline-color: var(--focus-ring);
+  }
+
   .linkAction::after {
     position: absolute;
     content: "";
@@ -179,5 +199,18 @@
 
   .linkAction:hover::after {
     transform: scaleX(1);
+  }
+
+  .linkAction::before {
+    position: absolute;
+    content: "";
+
+    --click-target-minimum-size: 44px;
+    --inset-by: min(0px, calc((100% - var(--click-target-minimum-size)) / 2));
+
+    top: var(--inset-by); /* 100% is represented by vertical size */
+    bottom: var(--inset-by);
+    left: var(--inset-by);
+    right: var(--inset-by);
   }
 }

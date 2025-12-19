@@ -1,6 +1,6 @@
-import styles from "./AnalyzerLayout.module.css";
+import styles from "./AnalysisReportLayout.module.css";
 
-export default function AnalyzerLayout({
+export function AnalysisReportLayout({
   children,
 }: {
   children: React.ReactNode;

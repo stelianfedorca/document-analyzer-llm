@@ -18,6 +18,12 @@
   --header-bg: #fff;
 
   --header-height: 70px;
+
+  --alternative-primary: #00141e;
+}
+
+:root[data-theme="dark"] {
+  --background: #0d0f11;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -75,6 +81,13 @@ h5,
 h6 {
   line-height: 1.2;
   color: var(--text-heading);
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
 }
 
 /* 

@@ -5,6 +5,8 @@ import { useMutation } from "@tanstack/react-query";
 
 export function useAnalyzeDocument() {
   const { user, isLoading } = useAuthContext();
+  console.log("user: ", user?.uid);
+
   async function analyzeDocument(file: File) {
     if (isLoading) throw new Error("Still determining auth state");
     if (!user) throw new Error("You must be signed in to analyze a document");
@@ -28,7 +30,6 @@ export function useAnalyzeDocument() {
       throw new Error(errorData.error || "Analysis failed");
     }
 
-    // TODO: To make sure api returns unique id for each analysis report
     const { docId } = (await response.json()) as {
       docId: string;
     };
@@ -38,8 +39,8 @@ export function useAnalyzeDocument() {
 
   return useMutation({
     mutationFn: analyzeDocument,
-    onSuccess: (data) => {
-      console.log("success...: ", data);
+    onSuccess: (docId) => {
+      // localStorage.setItem(`analysis_start_${docId}`, Date.now().toString());
     },
   });
 }

@@ -1,8 +1,9 @@
 "use client";
 
 import { useDocument } from "@/features/analyze/hooks/useDocument";
+import { useDownloadReport } from "@/features/analyze/hooks/useDownloadReport";
 import { useParams } from "next/navigation";
-import { ReportView } from "@/features/analyze/components/ReportView";
+import { AnalysisReportView } from "@/features/analyze/components/AnalysisReportView";
 import { AnalysisStatusCard } from "@/features/analyze/components/AnalysisStatusCard/AnalysisStatusCard";
 
 export default function ReportPage() {
@@ -10,6 +11,10 @@ export default function ReportPage() {
   const docId = params.id as string;
 
   const { data, isLoading, error } = useDocument(docId);
+  const downloadReport = useDownloadReport({
+    docId,
+    fileName: data?.fileName,
+  });
 
   // mock
   // const isLoading = false;
@@ -32,14 +37,16 @@ export default function ReportPage() {
     ? new Error(data?.errorMessage || "Unknown analysis error")
     : null;
 
+  // const displayError = new Error("hello world");
+
   if (isProcessing) {
-    return <AnalysisStatusCard mode="processing" />;
+    return <AnalysisStatusCard variant="processing" />;
   }
 
   if (displayError) {
     return (
       <AnalysisStatusCard
-        mode="error"
+        variant="error"
         errorMessage={displayError.message}
         onRetry={() => window.location.reload()}
       />
@@ -49,15 +56,21 @@ export default function ReportPage() {
   if (data === null) {
     return (
       <AnalysisStatusCard
-        mode="error"
+        variant="error"
         errorMessage="We couldn't find this document. It may have been deleted or never created."
       />
     );
   }
 
   if (data === undefined) {
-    return <AnalysisStatusCard mode="processing" />;
+    return <AnalysisStatusCard variant="processing" />;
   }
 
-  return <ReportView document={data} />;
+  return (
+    <AnalysisReportView
+      document={data}
+      onDownloadReport={() => downloadReport.mutate()}
+      isDownloadingReport={downloadReport.isPending}
+    />
+  );
 }

@@ -26,6 +26,20 @@
   outline-color: var(--focus-ring);
 }
 
+/* Add a minimum target size */
+.button::after {
+  position: absolute;
+  content: "";
+
+  --click-target-minimum-size: 44px;
+  --inset-by: min(0px, calc((100% - var(--click-target-minimum-size)) / 2));
+
+  top: var(--inset-by); /* 100% is represented by vertical size */
+  bottom: var(--inset-by);
+  left: var(--inset-by);
+  right: var(--inset-by);
+}
+
 /* Variants */
 .primary {
   background-color: var(--primary);
@@ -55,8 +69,8 @@
 }
 
 .secondary:hover:not(:disabled) {
-  background-color: #f9fafb;
   border: 1px solid var(--border-strong);
+  background-color: color-mix(in srgb, var(--primary) 8%, #fff);
 }
 
 /* ghost */
@@ -71,12 +85,23 @@
   color: var(--primary);
 }
 
-.ghost:active {
+.ghost[data-state="saved"] {
+  background-color: color-mix(in srgb, var(--primary) 8%, #fff);
+  border-color: color-mix(in srgb, var(--primary) 24%, var(--border));
 }
+
+.ghost[data-state="saved"]:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--primary) 12%, #fff);
+}
+
+.ghost[data-state="saved"] .icon {
+  color: var(--primary);
+}
+
 /* Sizes */
 .sm {
   padding: 0.75rem 0.875rem;
-  font-size: 0.875rem;
+  font-size: 1rem;
 }
 .md {
   padding: 1rem 1.125rem;
