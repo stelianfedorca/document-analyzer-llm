@@ -1,12 +1,11 @@
 .container {
   border: 2px dashed #cbd5e1;
   border-radius: 24px;
-  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 55%, #eef2ff 100%);
+  background: #ffffff;
   display: flex;
   justify-content: center;
   align-items: stretch;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease,
-    transform 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   min-height: 240px;
 
   width: 100%;
@@ -15,17 +14,9 @@
   box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
 }
 
+/* Removed internal dot pattern for cleaner look */
 .container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(
-    rgba(148, 163, 184, 0.2) 1px,
-    transparent 1px
-  );
-  background-size: 18px 18px;
-  opacity: 0.35;
-  pointer-events: none;
+  display: none;
 }
 
 .container:hover {
@@ -42,7 +33,7 @@
 
 .container.active {
   border-color: #4f46e5;
-  background: linear-gradient(145deg, #eef2ff 0%, #ffffff 70%);
+  background: var(--primary-light);
   box-shadow: 0 22px 50px rgba(79, 70, 229, 0.2);
   transform: translateY(-1px) scale(0.99);
 }
@@ -83,7 +74,6 @@
   cursor: pointer;
   outline: none;
   position: relative;
-  z-index: 1;
 }
 
 .iconWrap {

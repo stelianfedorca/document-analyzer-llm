@@ -1,25 +1,40 @@
 :root {
-  --background: #fafafa;
-  --primary: #2563eb;
+  /* Sleek Tech Palette */
+  --background: #f8fafc; /* Clean, cool white/gray */
+  --primary: #2563eb; /* Standard Tech Blue */
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
 
-  --text-heading: hsl(222, 47%, 11%); /* (Deep Slate / Almost Black) */
-  --text-emphasis: hsl(217, 24%, 28%); /* Between text-heading and text-body */
-  --text-body: hsl(210, 24%, 16%); /* (Dark Gray) */
-  --text-muted: hsl(215, 16%, 47%); /* (Medium Gray) */
+  --text-heading: #0f172a; /* Deep Slate */
+  --text-emphasis: #334155;
+  --text-body: #475569;
+  --text-muted: #64748b;
 
-  --secondary: #f2f2f2;
-  --secondary-hover: #e5e7eb;
+  --secondary: #f1f5f9;
+  --secondary-hover: #e2e8f0;
 
-  --border: #e2e8f0; /* Default dividers / card borders */
-  --border-strong: #cbd5e1; /* Button outlines / stronger separators */
-  --focus-ring: rgba(37, 99, 235, 0.45); /* Keyboard focus ring */
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
 
-  --card-bg: #fff;
-  --header-bg: #fff;
+  --focus-ring: rgba(37, 99, 235, 0.45);
+
+  --card-bg: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.85); /* Cleaner glass effect */
 
   --header-height: 70px;
 
-  --alternative-primary: #00141e;
+  /* Crisp Shadows (Refined) */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-sans);
 }
 
 :root[data-theme="dark"] {

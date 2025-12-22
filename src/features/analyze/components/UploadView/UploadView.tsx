@@ -55,36 +55,11 @@ export function UploadView() {
           <p className={styles.subtitle}>
             Upload a file to generate a structured report you can review
           </p>
-          <div className={styles.chipRow}>
+          {/* <div className={styles.chipRow}>
             <span className={styles.chip}>PDF</span>
             <span className={styles.chip}>DOCX</span>
             <span className={styles.chip}>TXT</span>
-          </div>
-        </div>
-        <div className={styles.heroCard}>
-          <div className={styles.stepItem}>
-            <span className={styles.stepNumber}>01</span>
-            <div>
-              <p className={styles.stepTitle}>Upload</p>
-              <p className={styles.stepText}>Drag & drop or browse files.</p>
-            </div>
-          </div>
-          <div className={styles.stepItem}>
-            <span className={styles.stepNumber}>02</span>
-            <div>
-              <p className={styles.stepTitle}>Analyze</p>
-              <p className={styles.stepText}>We prepare a detailed report.</p>
-            </div>
-          </div>
-          <div className={styles.stepItem}>
-            <span className={styles.stepNumber}>03</span>
-            <div>
-              <p className={styles.stepTitle}>Review</p>
-              <p className={styles.stepText}>
-                Open the report when it is ready.
-              </p>
-            </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={styles.content}>
@@ -100,7 +75,6 @@ export function UploadView() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
                   >
-                    {/* <FilePreviewCard file={file} onRemove={handleRemoveFile} /> */}
                     <PreviewCard
                       file={file}
                       onRemove={handleRemoveFile}

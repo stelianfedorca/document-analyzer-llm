@@ -6,9 +6,10 @@
   text-align: left;
   padding: 2rem;
   gap: 0.75rem;
-  border-radius: 18px;
-  border: 1px dashed #e2e8f0;
-  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: #fff;
+  box-shadow: var(--shadow-sm);
 }
 
 /* Stacked document illustration */
@@ -33,13 +34,14 @@
 
 .docIcon {
   font-size: 1.25rem;
-  color: #94a3b8;
+  color: var(--primary);
+  opacity: 0.8;
 }
 
 .bar {
   width: 80px;
   height: 12px;
-  background: linear-gradient(90deg, #e2e8f0 0%, #f8fafc 100%);
+  background: var(--primary-light);
   border-radius: 6px;
 }
 
@@ -59,8 +61,9 @@
 .ctaLink {
   position: relative;
   font-size: 1rem;
-  color: #259df4;
+  color: var(--primary);
   text-decoration: none;
+  font-weight: 600;
 }
 
 .ctaLink:hover {

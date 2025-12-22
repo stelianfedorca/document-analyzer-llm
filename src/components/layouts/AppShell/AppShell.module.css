@@ -3,6 +3,53 @@
 
   display: flex;
   flex-direction: column;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Global Diagonal Stripes Background */
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  /* Diagonal Pinstripe Pattern */
+  background-image: repeating-linear-gradient(
+    45deg,
+    #cbd5e1 0,
+    #cbd5e1 1px,
+    transparent 1px,
+    transparent 32px
+  );
+
+  opacity: 0.1; /* Very subtle visibility */
+  pointer-events: none;
+
+  /* Soft fade at edges (optional, but nice for specific views, here we want full coverage mainly) */
+  /* Remove mask for global full-page feel, or keep if user wanted the edges faded. 
+     UploadView had a mask. For a global background, a mask might look weird if it fades out at the bottom of a long page.
+     I'll remove the mask for the AppShell to ensure it covers scrolling content properly. */
+  background-attachment: fixed; /* Keeps pattern static while scrolling? Or standard. Standard is safer for performance. */
+}
+
+/* Spotlight Vignette (Layers ON TOP of stripes) */
+.container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1; /* Same level, but after before, so it sits on top */
+
+  /* Soft white glow in center, fading to transparent at edges */
+  /* This "washes out" the stripes in the middle */
+  background: radial-gradient(
+    circle at 50% 40%,
+    rgba(255, 255, 255, 0.95) 20%,
+    rgba(255, 255, 255, 0) 80%
+  );
+
+  pointer-events: none;
+  background-attachment: fixed;
 }
 
 .header {
