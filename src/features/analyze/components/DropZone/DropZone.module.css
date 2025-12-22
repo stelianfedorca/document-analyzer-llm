@@ -6,12 +6,13 @@
   justify-content: center;
   align-items: stretch;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-  min-height: 240px;
+  /* min-height: 240px; */
 
   width: 100%;
   position: relative;
   overflow: hidden;
   box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
+  padding: 1rem;
 }
 
 /* Removed internal dot pattern for cleaner look */
@@ -41,7 +42,7 @@
 @media (min-width: 1100px) {
   .container {
     /* height: auto; */
-    min-height: 300px;
+    /* min-height: 300px; */
   }
 }
 
@@ -109,7 +110,7 @@
 
 .title {
   color: #1e293b;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
@@ -125,6 +126,9 @@
 }
 
 @media (min-width: 768px) {
+  .container {
+    padding: 2rem;
+  }
   .title {
     font-size: 1.5rem;
   }

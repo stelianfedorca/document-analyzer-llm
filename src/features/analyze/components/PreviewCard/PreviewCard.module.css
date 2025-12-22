@@ -5,7 +5,7 @@
 .card {
   width: 100%;
   position: relative;
-  padding: 24px 28px;
+  padding: 24px 8px;
   background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   border: 1px solid #e2e8f0;
   border-radius: 24px;
@@ -60,25 +60,30 @@
   margin-top: 6px;
 }
 
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .removeButton {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 42px;
-  height: 42px;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
   border-radius: 9999px;
   border: 1px solid #e2e8f0;
-  background: #f8fafc;
+  background-color: #f8fafc;
   color: #64748b;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .removeButton:hover {
-  background: #ffffff;
+  background-color: #ffffff;
   border-color: #cbd5e1;
   color: #0f172a;
   box-shadow: 0 10px 20px rgba(15, 23, 42, 0.1);
@@ -89,7 +94,7 @@
 }
 
 .removeButton:focus-visible {
-  outline: 3px solid rgba(59, 130, 246, 0.45);
+  outline: 2px solid rgba(59, 130, 246, 0.45);
   outline-offset: 2px;
 }
 

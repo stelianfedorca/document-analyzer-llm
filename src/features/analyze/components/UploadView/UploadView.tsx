@@ -64,7 +64,7 @@ export function UploadView() {
       </div>
       <div className={styles.content}>
         <div className={styles.mainContent}>
-          <div className={styles.uploadCard}>
+          <motion.div layout className={styles.uploadCard}>
             <div className={styles.uploadSurface}>
               <AnimatePresence mode="wait" initial={false}>
                 {file ? (
@@ -110,7 +110,7 @@ export function UploadView() {
                 We will take you to the report view when it is ready.
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         <aside className={styles.sidebar}>

@@ -33,18 +33,20 @@ export function PreviewCard({ file, onRemove, onChangeFile }: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <FileHeader file={file} fileSizeLabel={fileSizeLabel} />
-        <button
-          onClick={onRemove}
-          className={styles.removeButton}
-          aria-label="Remove file"
-        >
-          <FiX aria-hidden="true" className={styles.closeIcon} />
-        </button>
+        <div className={styles.headerRow}>
+          <FileHeader file={file} fileSizeLabel={fileSizeLabel} />
+          <button
+            onClick={onRemove}
+            className={styles.removeButton}
+            aria-label="Remove file"
+          >
+            <FiX aria-hidden="true" className={styles.closeIcon} />
+          </button>
+        </div>
 
         <div className={styles.actionsRow}>
           <button
-            onClick={onChangeFile ?? onRemove}
+            onClick={onChangeFile}
             className={styles.changeButton}
             aria-label="Change file"
           >
