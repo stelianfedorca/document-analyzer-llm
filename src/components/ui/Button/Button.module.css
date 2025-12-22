@@ -21,11 +21,6 @@
   cursor: not-allowed;
 }
 
-.button:focus-visible {
-  outline-offset: 3px;
-  outline-color: var(--focus-ring);
-}
-
 /* Add a minimum target size */
 .button::after {
   position: absolute;

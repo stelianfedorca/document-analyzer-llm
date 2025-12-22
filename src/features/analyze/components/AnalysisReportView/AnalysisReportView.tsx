@@ -14,6 +14,7 @@ import styles from "./AnalysisReportView.module.css";
 import { DocumentRecord, AnalysisStatus } from "@/types/firestore";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
+import clsx from "clsx";
 import { useToast } from "@/components/ui/ToastProvider/ToastProvider";
 import {
   buildReportHtml,
@@ -195,7 +196,10 @@ export function AnalysisReportView({
             </div>
           )}
 
-          <Link href="/analyze/upload" className={styles.linkAction}>
+          <Link
+            href="/analyze/upload"
+            className={clsx(styles.linkAction, "focusRing")}
+          >
             <FiPlus aria-hidden focusable="false" />
             New Analysis
           </Link>

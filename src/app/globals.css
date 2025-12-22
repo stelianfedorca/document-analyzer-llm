@@ -81,6 +81,11 @@ a {
   text-decoration: none;
 }
 
+.focusRing:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
 .maxReadingWidth {
   max-width: 65ch;
   width: 100%;
@@ -103,6 +108,17 @@ button,
 textarea,
 select {
   font: inherit;
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
 }
 
 /* 

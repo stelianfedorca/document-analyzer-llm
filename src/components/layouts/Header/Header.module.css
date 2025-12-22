@@ -29,7 +29,9 @@
 }
 
 .nav {
-  /* display: none; */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .logoLink {
@@ -73,7 +75,7 @@
   color: var(--primary);
 }
 
-.navLinks {
+.desktopNavLinks {
   display: none;
 }
 
@@ -105,6 +107,40 @@
   align-items: center;
   gap: 1rem;
 }
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  background-color: transparent;
+  color: var(--text-heading);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  position: relative;
+}
+
+.menuButton::before {
+  position: absolute;
+  content: "";
+
+  --minimum-target-size: 44px;
+  --inset-by: min(0px, calc((100% - var(--minimum-target-size)) / 2));
+
+  top: var(--inset-by);
+  bottom: var(--inset-by);
+  left: var(--inset-by);
+  right: var(--inset-by);
+}
+
+.menuIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .avatar {
   width: 32px;
   height: 32px;
@@ -120,14 +156,17 @@
 
 @media (min-width: 768px) {
   .nav {
-    display: flex;
     align-items: center;
     gap: 3rem;
   }
 
-  .navLinks {
+  .desktopNavLinks {
     display: flex;
     align-items: center;
     gap: 1rem;
+  }
+
+  .menuButton {
+    display: none;
   }
 }
