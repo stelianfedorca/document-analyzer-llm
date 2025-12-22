@@ -12,7 +12,6 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
-  padding: 1rem;
 }
 
 /* Removed internal dot pattern for cleaner look */
@@ -75,6 +74,7 @@
   cursor: pointer;
   outline: none;
   position: relative;
+  padding: 1rem;
 }
 
 .iconWrap {
@@ -126,7 +126,7 @@
 }
 
 @media (min-width: 768px) {
-  .container {
+  .dropArea {
     padding: 2rem;
   }
   .title {
