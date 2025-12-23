@@ -25,6 +25,7 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
         })}
         aria-hidden={!isOpen}
         id="mobile-menu"
+        inert={!isOpen}
       >
         <nav className={styles.mobileNav} aria-label="Mobile navigation">
           {navLinks.map((link) => {
@@ -48,3 +49,5 @@ export const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(
     );
   }
 );
+
+MobileMenu.displayName = "MobileMenu";

@@ -8,29 +8,35 @@ import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { DesktopNav } from "./DesktopNav";
 import { MobileMenu } from "./MobileMenu";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import { useReturnFocusOnClose } from "@/hooks/useReturnFocusOnClose";
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   useClickOutside(menuRef, (event) => {
     // Ignore clicks on the menu button - let the button's onClick handle it
-    if (buttonRef.current?.contains(event.target as Node)) {
+    if (menuButtonRef.current?.contains(event.target as Node)) {
       return;
     }
 
     closeMobileMenu();
   });
 
+  useReturnFocusOnClose({
+    isOpen: isMobileMenuOpen,
+    containerRef: menuRef,
+    triggerRef: menuButtonRef,
+  });
+
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
         <nav className={styles.nav} aria-label="Primary">
-          {/* Left: Brand / Logo */}
           <Link
             href="/analyze/upload"
             className={clsx(styles.brandName, "focusRing")}
@@ -39,12 +45,10 @@ export function Header() {
             <span className={styles.brandAccent}>Lense</span>
           </Link>
 
-          {/* Desktop Navigation */}
           <DesktopNav />
 
-          {/* Mobile Menu Button */}
           <button
-            ref={buttonRef}
+            ref={menuButtonRef}
             onClick={toggleMobileMenu}
             className={clsx(styles.menuButton, "focusRing")}
             aria-expanded={isMobileMenuOpen}
