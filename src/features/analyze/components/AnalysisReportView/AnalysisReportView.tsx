@@ -63,6 +63,7 @@ export function AnalysisReportView({
 
   const status: AnalysisStatus = document?.status ?? "processing";
   const duration = useAnalysisDuration(status);
+  console.log(`Analyzed in ${duration?.toFixed(1)}s`);
 
   const handleSaveToHistory = async () => {
     // if (!onSaveToHistory) return;
@@ -153,48 +154,45 @@ export function AnalysisReportView({
               Download Report
             </Button>
 
-            <Button
-              variant="secondary"
-              icon={
-                isCopied ? (
-                  <FiCheck aria-hidden focusable="false" />
-                ) : (
-                  <FiCopy aria-hidden focusable="false" />
-                )
-              }
-              onClick={handleCopyReport}
-              disabled={!hasAnalysis}
-            >
-              {isCopied ? "Copied" : "Copy Report"}
-            </Button>
+            <div className={styles.secondaryActions}>
+              <Button
+                variant="secondary"
+                fullWidth
+                icon={
+                  isCopied ? (
+                    <FiCheck aria-hidden focusable="false" />
+                  ) : (
+                    <FiCopy aria-hidden focusable="false" />
+                  )
+                }
+                onClick={handleCopyReport}
+                disabled={!hasAnalysis}
+              >
+                {isCopied ? "Copied" : "Copy Report"}
+              </Button>
 
-            <Button
-              variant="ghost"
-              icon={
-                isSaved ? (
-                  <FiBookmark
-                    aria-hidden
-                    focusable="false"
-                    fill="currentColor"
-                  />
-                ) : (
-                  <FiBookmark aria-hidden focusable="false" />
-                )
-              }
-              onClick={handleSaveToHistory}
-              disabled={!hasAnalysis}
-              state={isSaved ? "saved" : undefined}
-            >
-              {isSaved ? "Saved" : "Save to History"}
-            </Button>
-          </div>
-
-          {duration !== null && (
-            <div className={styles.duration} aria-live="polite">
-              <FiClock aria-hidden="true" />
-              <span>Analyzed in {duration.toFixed(1)}s</span>
+              <Button
+                variant="ghost"
+                fullWidth
+                icon={
+                  isSaved ? (
+                    <FiBookmark
+                      aria-hidden
+                      focusable="false"
+                      fill="currentColor"
+                    />
+                  ) : (
+                    <FiBookmark aria-hidden focusable="false" />
+                  )
+                }
+                onClick={handleSaveToHistory}
+                disabled={!hasAnalysis}
+                state={isSaved ? "saved" : undefined}
+              >
+                {isSaved ? "Saved" : "Save to History"}
+              </Button>
             </div>
-          )}
+          </div>
 
           <Link
             href="/analyze/upload"

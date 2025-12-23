@@ -100,7 +100,12 @@
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
+}
+
+.secondaryActions {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .duration {
@@ -158,6 +163,10 @@
   .sidebar {
     position: sticky;
     top: calc(var(--header-height) + 1rem);
+  }
+
+  .secondaryActions {
+    flex-direction: column;
   }
 
   .linkAction {
