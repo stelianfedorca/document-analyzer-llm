@@ -1,6 +1,7 @@
 import { FiRefreshCw, FiX } from "react-icons/fi";
 import { FileHeader } from "../FileHeader";
 import styles from "./PreviewCard.module.css";
+import clsx from "clsx";
 
 function formatFileSizeLabel(bytes: number): string {
   if (!Number.isFinite(bytes) || bytes <= 0) return "0 B";
@@ -33,19 +34,21 @@ export function PreviewCard({ file, onRemove, onChangeFile }: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <FileHeader file={file} fileSizeLabel={fileSizeLabel} />
-        <button
-          onClick={onRemove}
-          className={styles.removeButton}
-          aria-label="Remove file"
-        >
-          <FiX aria-hidden="true" className={styles.closeIcon} />
-        </button>
+        <div className={styles.headerRow}>
+          <FileHeader file={file} fileSizeLabel={fileSizeLabel} />
+          <button
+            onClick={onRemove}
+            className={clsx(styles.removeButton, "focusRing")}
+            aria-label="Remove file"
+          >
+            <FiX aria-hidden="true" className={styles.closeIcon} />
+          </button>
+        </div>
 
         <div className={styles.actionsRow}>
           <button
-            onClick={onChangeFile ?? onRemove}
-            className={styles.changeButton}
+            onClick={onChangeFile}
+            className={clsx(styles.changeButton, "focusRing")}
             aria-label="Change file"
           >
             <div className={styles.refreshIconWrapper}>

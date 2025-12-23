@@ -100,7 +100,12 @@
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
+}
+
+.secondaryActions {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .duration {
@@ -160,6 +165,10 @@
     top: calc(var(--header-height) + 1rem);
   }
 
+  .secondaryActions {
+    flex-direction: column;
+  }
+
   .linkAction {
     position: relative;
     display: flex;
@@ -176,11 +185,6 @@
     font-weight: 600;
 
     cursor: pointer;
-  }
-
-  .linkAction:focus-visible {
-    outline-offset: 3px;
-    outline-color: var(--focus-ring);
   }
 
   .linkAction::after {

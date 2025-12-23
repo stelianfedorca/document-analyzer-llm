@@ -17,6 +17,7 @@
   justify-content: space-between;
   gap: 1rem;
 
+  /* max-width wrapper */
   --max-width-px: 1200; /* 1200px */
   --max-width: calc(var(--max-width-px) / 16 * 1rem);
 
@@ -24,18 +25,16 @@
   max-width: var(--max-width);
   margin-left: auto;
   margin-right: auto;
-  padding: 0 16px;
+  padding: 16px;
 }
 
 .nav {
+  width: 100%;
   display: flex;
-  gap: 1rem;
-}
-
-.brand {
-  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
+
 .logoLink {
   display: flex;
   align-items: center;
@@ -45,14 +44,104 @@
   font-weight: 600;
   font-size: 1.125rem;
 }
-.logoText {
-  color: var(--text-primary, #0f172a);
+
+.brandName {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 1.5rem;
+  position: relative;
+  letter-spacing: -0.03em;
 }
+
+.brandName::before {
+  position: absolute;
+  content: "";
+
+  --minimum-target-size: 44px;
+  --inset-by: min(0px, calc((100% - var(--minimum-target-size)) / 2));
+
+  top: var(--inset-by);
+  bottom: var(--inset-by);
+  left: var(--inset-by);
+  right: var(--inset-by);
+
+  /* --inset-by: calc(0px, min() */
+}
+
+.brandBase {
+  color: var(--text-heading);
+}
+
+.brandAccent {
+  color: var(--primary);
+}
+
+.desktopNavLinks {
+  display: none;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+
+  padding: 6px 12px;
+  border-radius: 9999px;
+
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.navLinkActive {
+  color: var(--primary);
+  font-weight: 600;
+  background-color: #eef2ff;
+}
+
+.navLink:hover {
+  color: var(--primary);
+  background-color: color-mix(in srgb, var(--primary) 8%, #fff);
+}
+
 .actions {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  background-color: transparent;
+  color: var(--text-heading);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  position: relative;
+}
+
+.menuButton::before {
+  position: absolute;
+  content: "";
+
+  --minimum-target-size: 44px;
+  --inset-by: min(0px, calc((100% - var(--minimum-target-size)) / 2));
+
+  top: var(--inset-by);
+  bottom: var(--inset-by);
+  left: var(--inset-by);
+  right: var(--inset-by);
+}
+
+.menuIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .avatar {
   width: 32px;
   height: 32px;
@@ -62,6 +151,23 @@
 
 @media (min-width: 550px) {
   .inner {
-    padding: 0 32px;
+    padding: 16px 32px;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav {
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .desktopNavLinks {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .menuButton {
+    display: none;
   }
 }

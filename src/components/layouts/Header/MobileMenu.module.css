@@ -1,0 +1,61 @@
+.mobileMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--header-bg, #fff);
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+
+  /* Animation properties */
+  transform-origin: top;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.mobileMenu.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.mobileMenu.closed {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px 16px;
+  gap: 4px;
+}
+
+.mobileNavLink {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--text-body, #374151);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.mobileNavLink:hover {
+  color: var(--primary);
+  background-color: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+.mobileNavLinkActive {
+  color: var(--primary);
+  font-weight: 600;
+  background-color: #eef2ff;
+}
+
+/* Hide on desktop */
+@media (min-width: 768px) {
+  .mobileMenu {
+    display: none !important;
+  }
+}

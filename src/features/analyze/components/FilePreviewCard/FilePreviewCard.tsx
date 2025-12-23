@@ -1,6 +1,7 @@
 import { motion, stagger, Variants } from "framer-motion";
 import { FiFileText, FiX } from "react-icons/fi";
 import styles from "./FilePreviewCard.module.css";
+import clsx from "clsx";
 
 interface Props {
   file: File;
@@ -56,7 +57,7 @@ export function FilePreviewCard({
         </div>
         <button
           onClick={onRemove}
-          className={styles.removeButton}
+          className={clsx(styles.removeButton, "focusRing")}
           aria-label="Remove file"
         >
           <FiX size={22} />

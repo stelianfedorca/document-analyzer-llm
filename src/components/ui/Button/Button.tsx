@@ -32,6 +32,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
   ) => {
     const buttonStyles = clsx(
       styles.button,
+      "focusRing",
       styles[variant],
       styles[size],
       {

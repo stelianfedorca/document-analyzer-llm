@@ -31,7 +31,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ToastContext.Provider value={{ showToast }}>
-      <Toast.Provider swipeDirection="right">
+      <Toast.Provider swipeDirection="right" duration={2000}>
         {children}
         <Toast.Root
           open={open}

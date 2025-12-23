@@ -1,4 +1,4 @@
-## Rules
+<!-- ## Rules
 
 - Present the plan before implementing
-- Explain your reasoning
+- Explain your reasoning -->
