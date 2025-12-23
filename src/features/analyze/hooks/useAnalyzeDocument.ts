@@ -27,6 +27,12 @@ export function useAnalyzeDocument() {
 
     if (!response.ok) {
       const errorData = await response.json();
+      if (response.status === 429) {
+        throw new Error(
+          errorData.error ||
+            "Rate limit exceeded. Please try again later tomorrow."
+        );
+      }
       throw new Error(errorData.error || "Analysis failed");
     }
 

@@ -1,4 +1,5 @@
 import { auth, db, storage } from "@/lib/firebaseAdmin";
+import { checkRateLimit } from "@/lib/rateLimit";
 import { FieldValue } from "firebase-admin/firestore";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -25,7 +26,27 @@ export async function POST(req: NextRequest) {
     }
     const userId = decodedToken.uid;
 
-    // 2. Parse Form Data
+    // 2. Check Rate Limit
+    const rateCheck = await checkRateLimit(userId);
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        {
+          error: "Rate limit exceeded. Please try again tomorrow.",
+          remaining: 0,
+          resetAt: rateCheck.resetAt.toISOString(),
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(
+              Math.ceil((rateCheck.resetAt.getTime() - Date.now()) / 1000)
+            ),
+          },
+        }
+      );
+    }
+
+    // 3. Parse Form Data
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
 
