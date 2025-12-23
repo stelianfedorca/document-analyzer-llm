@@ -39,8 +39,5 @@ export function useAnalyzeDocument() {
 
   return useMutation({
     mutationFn: analyzeDocument,
-    onSuccess: (docId) => {
-      // localStorage.setItem(`analysis_start_${docId}`, Date.now().toString());
-    },
   });
 }

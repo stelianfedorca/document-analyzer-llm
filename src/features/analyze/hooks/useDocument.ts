@@ -64,22 +64,26 @@ export function useDocument(docId: string) {
       return;
     }
 
+    let isActive = true;
+
     const docRef = doc(db, "users", userId, "documents", docId);
     const queryKey = ["analysis", userId, docId];
 
     const unsubscribe = onSnapshot(
       docRef,
       (snapshot) => {
+        if (!isActive) return;
         setSnapshotError(null);
 
         const nextData = formatSnapshot(snapshot);
         queryClient.setQueryData(queryKey, nextData);
 
-        if (nextData?.status !== "processing") {
+        if (nextData?.status === "completed") {
           unsubscribe();
         }
       },
       (error) => {
+        if (!isActive) return;
         setSnapshotError(
           error instanceof Error
             ? error
@@ -88,7 +92,10 @@ export function useDocument(docId: string) {
       }
     );
 
-    return () => unsubscribe();
+    return () => {
+      isActive = false;
+      unsubscribe();
+    };
   }, [docId, isQueryEnabled, queryClient, userId]);
 
   const error = snapshotError ?? query.error;
