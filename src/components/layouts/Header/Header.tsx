@@ -42,7 +42,7 @@ export function Header() {
             className={clsx(styles.brandName, "focusRing")}
           >
             <span className={styles.brandBase}>Doc</span>
-            <span className={styles.brandAccent}>Lense</span>
+            <span className={styles.brandAccent}>Lens</span>
           </Link>
 
           <DesktopNav />
