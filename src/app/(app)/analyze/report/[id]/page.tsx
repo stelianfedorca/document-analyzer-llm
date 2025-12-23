@@ -5,6 +5,8 @@ import { useDownloadReport } from "@/features/analyze/hooks/useDownloadReport";
 import { useParams } from "next/navigation";
 import { AnalysisReportView } from "@/features/analyze/components/AnalysisReportView";
 import { AnalysisStatusCard } from "@/features/analyze/components/AnalysisStatusCard/AnalysisStatusCard";
+import { useRetryAnalyzeDocument } from "@/features/analyze/hooks/useRetryAnalyzeDocument";
+import { useToast } from "@/components/ui/ToastProvider/ToastProvider";
 
 export default function ReportPage() {
   const params = useParams();
@@ -15,6 +17,8 @@ export default function ReportPage() {
     docId,
     fileName: data?.fileName,
   });
+  const retry = useRetryAnalyzeDocument();
+  const { showToast } = useToast();
 
   // mock
   // const isLoading = false;
@@ -27,7 +31,8 @@ export default function ReportPage() {
   const isPending = isLoading || (data === undefined && !error);
 
   // Show processing while pending OR while backend status is still "processing"
-  const isProcessing = isPending || data?.status === "processing";
+  const isProcessing =
+    isPending || data?.status === "processing" || retry.isPending;
 
   // Error Logic:
   // Show error IF the hook failed OR if the backend reported "failed"
@@ -48,7 +53,23 @@ export default function ReportPage() {
       <AnalysisStatusCard
         variant="error"
         errorMessage={displayError.message}
-        onRetry={() => window.location.reload()}
+        onRetry={() => {
+          if (retry.isPending) return;
+          retry.mutate(
+            { docId },
+            {
+              onError: (err) => {
+                const message =
+                  err instanceof Error ? err.message : "Retry failed";
+                showToast({
+                  title: "Retry failed",
+                  description: message,
+                  variant: "error",
+                });
+              },
+            }
+          );
+        }}
       />
     );
   }
