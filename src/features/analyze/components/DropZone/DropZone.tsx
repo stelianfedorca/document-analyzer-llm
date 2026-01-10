@@ -12,6 +12,32 @@ interface Props {
   onFileSelected: (file: File) => void;
 }
 
+const formatBytes = (bytes: number) => {
+  if (bytes >= 1024 * 1024) return `${Math.round(bytes / (1024 * 1024))} MB`;
+  if (bytes >= 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${bytes} B`;
+};
+
+const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
+const MAX_FILE_SIZE_LABEL = formatBytes(MAX_FILE_SIZE_BYTES);
+const ICON_VARIANTS = {
+  idle: {
+    backgroundColor: "#ffffff",
+    color: "#64748b",
+    borderColor: "#e2e8f0",
+  },
+  active: {
+    backgroundColor: "#eef2ff",
+    color: "#4338ca",
+    borderColor: "#e2e8f0",
+  },
+  reject: {
+    backgroundColor: "#fef2f2",
+    color: "#ef4444",
+    borderColor: "#fee2e2",
+  },
+};
+
 export function DropZone({ onFileSelected }: Props) {
   const [error, setError] = useState<string | null>(null);
   const controls = useAnimation();
@@ -33,6 +59,8 @@ export function DropZone({ onFileSelected }: Props) {
       if (rejection) {
         if (rejection.errors[0]?.code === "file-invalid-type") {
           setError("Only PDF, DOCX, and TXT files are supported");
+        } else if (rejection.errors[0]?.code === "file-too-large") {
+          setError(`File is too large. Max size is ${MAX_FILE_SIZE_LABEL}.`);
         } else {
           setError(rejection.errors[0]?.message || "Something went wrong");
         }
@@ -58,8 +86,12 @@ export function DropZone({ onFileSelected }: Props) {
           [".docx"],
         "text/plain": [".txt"],
       },
+      maxSize: MAX_FILE_SIZE_BYTES,
       onDropRejected: handleDropRejected,
     });
+
+  const iconState =
+    isDragReject || !!error ? "reject" : isDragActive ? "active" : "idle";
 
   const rootProps = getRootProps({
     className: clsx(styles.container, {
@@ -75,20 +107,8 @@ export function DropZone({ onFileSelected }: Props) {
       <div className={styles.dropArea}>
         <motion.div
           className={styles.iconWrap}
-          animate={{
-            scale: isDragActive ? 1.08 : 1,
-            backgroundColor: isDragReject
-              ? "#fef2f2"
-              : isDragActive
-              ? "#eef2ff"
-              : "#ffffff",
-            color: isDragReject
-              ? "#ef4444"
-              : isDragActive
-              ? "#4338ca"
-              : "#64748b",
-            borderColor: isDragReject ? "#fee2e2" : "#e2e8f0",
-          }}
+          animate={iconState}
+          variants={ICON_VARIANTS}
           transition={{ duration: 0.1 }}
         >
           {isDragReject || error ? (
@@ -110,6 +130,9 @@ export function DropZone({ onFileSelected }: Props) {
               <p className={styles.subtitleDesktop}>Drag or click to upload</p>
               <p className={styles.subtitleDesktop}>
                 Supported formats: PDF, DOCX, TXT
+              </p>
+              <p className={styles.subtitleAll}>
+                Max size: {MAX_FILE_SIZE_LABEL}
               </p>
             </>
           )}

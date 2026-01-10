@@ -116,13 +116,18 @@
 
 .subtitle {
   color: #64748b;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .subtitleDesktop {
   color: #475569;
   display: none;
   font-size: 0.9rem;
+}
+
+.subtitleAll {
+  color: #475569;
+  font-size: 1rem;
 }
 
 .errorMessage {
