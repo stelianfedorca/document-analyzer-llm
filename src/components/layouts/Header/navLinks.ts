@@ -11,9 +11,9 @@ export const navLinks: NavLink[] = [
     label: "Analysis",
     matchPattern: "/analyze/upload",
   },
-  {
-    href: "/analyze/history",
-    label: "History",
-    matchPattern: "/analyze/history",
-  },
+  // {
+  //   href: "/analyze/history",
+  //   label: "History",
+  //   matchPattern: "/analyze/history",
+  // },
 ];

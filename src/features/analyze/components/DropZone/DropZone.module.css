@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: stretch;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-  /* min-height: 240px; */
+  /* min-height: 220px; */
 
   width: 100%;
   position: relative;
@@ -38,11 +38,11 @@
   transform: translateY(-1px) scale(0.99);
 }
 
+.container.rejected {
+  border-color: #ef4444;
+}
+
 @media (min-width: 1100px) {
-  .container {
-    /* height: auto; */
-    /* min-height: 300px; */
-  }
 }
 
 /*
@@ -116,13 +116,24 @@
 
 .subtitle {
   color: #64748b;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .subtitleDesktop {
   color: #475569;
   display: none;
   font-size: 0.9rem;
+}
+
+.subtitleAll {
+  color: #475569;
+  font-size: 1rem;
+}
+
+.errorMessage {
+  color: #ef4444;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 @media (min-width: 768px) {

@@ -4,6 +4,7 @@ import type { DocumentRecord } from "./types/firestore";
 import { db, storage } from "./firebase";
 import { runGeminiAnalysis } from "./gemini";
 import { FieldValue } from "firebase-admin/firestore";
+import mammoth from "mammoth";
 
 export const analyzeDocument = onDocumentWritten(
   {
@@ -85,15 +86,36 @@ export const analyzeDocument = onDocumentWritten(
       const bucket = storage.bucket();
       const fileRef = bucket.file(storagePath);
       const [buffer] = await fileRef.download();
-      const base64Data = buffer.toString("base64");
 
-      const mimeType = fileName.toLowerCase().endsWith(".pdf")
-        ? "application/pdf"
-        : "text/plain";
+      let promptContent = "";
+      let promptMimeType = "text/plain";
+
+      const lowerName = fileName.toLowerCase();
+
+      if (lowerName.endsWith(".pdf")) {
+        promptContent = buffer.toString("base64");
+        promptMimeType = "application/pdf";
+      } else if (lowerName.endsWith(".docx")) {
+        try {
+          const result = await mammoth.extractRawText({ buffer: buffer });
+          promptContent = result.value;
+          promptMimeType = "text/plain";
+        } catch (err) {
+          logger.error("Mammoth extraction failed", err);
+          throw new Error("Failed to extract text from DOCX");
+        }
+      } else {
+        // Assume text file (txt, md, json, etc.)
+        promptContent = buffer.toString("utf-8");
+        promptMimeType = "text/plain";
+      }
 
       // Step B: Send to Gemini
 
-      const analysisResult = await runGeminiAnalysis(base64Data, mimeType);
+      const analysisResult = await runGeminiAnalysis(
+        promptContent,
+        promptMimeType
+      );
       // Step C: Update Document with Results
       // (This update will trigger the function again, but Step 3 will catch it!)
       await db

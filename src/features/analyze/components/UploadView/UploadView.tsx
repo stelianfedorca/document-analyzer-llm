@@ -8,6 +8,7 @@ import { useAnalyzeDocument } from "@/features/analyze/hooks";
 import { useRouter } from "next/navigation";
 import { DropZone } from "../DropZone";
 import { RecentAnalysisList } from "@/features/history/components/RecentAnalysisList";
+import { HowItWorks } from "../HowItWorks";
 import { Button } from "@/components/ui/Button";
 import { useToast } from "@/components/ui/ToastProvider/ToastProvider";
 
@@ -114,7 +115,7 @@ export function UploadView() {
         </div>
 
         <aside className={styles.sidebar}>
-          <div className={styles.sidebarCard}>
+          {/* <div className={styles.sidebarCard}>
             <div className={styles.sidebarHeader}>
               <h2 className={styles.sidebarTitle}>Recent analyses</h2>
               <p className={styles.sidebarSubtitle}>
@@ -122,7 +123,8 @@ export function UploadView() {
               </p>
             </div>
             <RecentAnalysisList />
-          </div>
+          </div> */}
+          <HowItWorks />
         </aside>
       </div>
     </section>
