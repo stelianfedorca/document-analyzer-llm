@@ -71,10 +71,3 @@
   padding-top: calc(3rem + var(--header-height));
   padding-bottom: 3rem;
 }
-
-.footer {
-  height: 150px;
-  border: "1px solid";
-  border-color: #e5e7eb;
-  background-color: #ffff;
-}

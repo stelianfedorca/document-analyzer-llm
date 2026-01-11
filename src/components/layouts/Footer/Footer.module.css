@@ -1,0 +1,122 @@
+.footer {
+  padding: 4rem 0;
+  border-top: 1px solid var(--gray-200);
+  background-color: var(--background);
+  color: var(--gray-600);
+  font-size: 0.875rem;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .inner {
+    flex-direction: row;
+  }
+}
+
+.brandColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .brandColumn {
+    align-items: flex-start;
+  }
+}
+
+.brandName {
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.copyright {
+  color: var(--gray-500);
+}
+
+.socialRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: var(--gray-100);
+  color: var(--gray-600);
+  transition: all 0.2s ease;
+}
+
+.socialLink:hover {
+  background-color: var(--gray-200);
+  color: var(--text-heading);
+  transform: scale(1.05);
+}
+
+.socialIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.copyButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: var(--gray-100);
+  color: var(--gray-600);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.copyButton:hover {
+  background-color: var(--gray-200);
+  color: var(--text-heading);
+  transform: scale(1.05);
+}
+
+/* Optional: Tooltip for copy feedback if Toast isn't clear enough, 
+   but toast is preferred. */
+
+.emailText {
+  color: var(--gray-600);
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+/* Increase click target size for icons */
+.socialLink,
+.copyButton {
+  position: relative;
+}
+
+.socialLink::after,
+.copyButton::after {
+  position: absolute;
+  content: "";
+
+  --click-target-minimum-size: 44px;
+  --inset-by: min(0px, calc((100% - var(--click-target-minimum-size)) / 2));
+
+  top: var(--inset-by);
+  bottom: var(--inset-by);
+  left: var(--inset-by);
+  right: var(--inset-by);
+}
