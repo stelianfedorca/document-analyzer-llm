@@ -171,7 +171,7 @@ export function AnalysisReportView({
                 {isCopied ? "Copied" : "Copy Report"}
               </Button>
 
-              <Button
+              {/* <Button
                 variant="ghost"
                 fullWidth
                 icon={
@@ -190,7 +190,7 @@ export function AnalysisReportView({
                 state={isSaved ? "saved" : undefined}
               >
                 {isSaved ? "Saved" : "Save to History"}
-              </Button>
+              </Button> */}
             </div>
           </div>
 
